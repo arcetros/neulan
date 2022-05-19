@@ -1,6 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import Header from './Header';
+import Table from './UI/Table';
+import Tab from './UI/Table/Tab';
+
+const types = ['Week', 'Month', '3 Month', '6 Month'];
 
 function Card() {
   return (
@@ -12,8 +16,9 @@ function Card() {
 }
 
 export default function Overview() {
+  const [active, setActive] = useState(types[0]);
   return (
-    <div className="relative flex flex-col mx-auto max-w-[150rem] flex-1 overflow-y-auto overflow-x-hidden px-16">
+    <div className="relative flex flex-col mx-auto max-w-[150rem] flex-1 overflow-y-auto overflow-x-hidden px-16 pb-12">
       <Header />
       <main className="flex flex-col pt-8 gap-y-8">
         <span className="font-thin text-4xl text-gray-700">
@@ -30,6 +35,14 @@ export default function Overview() {
             </div>
           </div>
         </div>
+        <div className="flex gap-x-16 mt-4">
+          {types.map((item, index) => (
+            <Tab key={index} active={active === item} onClick={() => setActive(item)}>
+              {item}
+            </Tab>
+          ))}
+        </div>
+        <Table />
       </main>
     </div>
   );

@@ -9,7 +9,8 @@ function Chart({ isActive, percent }: IIsActive) {
   return (
     <div className="relative">
       <div
-        className={`absolute bottom-0 ${isActive ? 'bg-yellow-400' : 'bg-gray-700'} ${percent} w-[10px] rounded z-10`}
+        className={`absolute bottom-0 ${isActive ? 'bg-yellow-400' : 'bg-gray-700'} w-[10px] rounded z-10`}
+        style={{ height: percent }}
       />
       <div className="absolute bottom-0 left-[0.9px] transform translate-x-1/2 z-0 border-l-gray-700 border-dashed border-l-2 w-1 h-full" />
     </div>
@@ -27,12 +28,12 @@ export default function RainChart() {
             <span>rainy</span>
             <span>sunny</span>
           </div>
-          <Chart isActive={false} percent="h-[21%]" />
-          <Chart isActive={false} percent="h-[19%]" />
-          <Chart isActive={false} percent="h-[49%]" />
-          <Chart isActive percent="h-[70%]" />
-          <Chart isActive={false} percent="h-[29%]" />
-          <Chart isActive={false} percent="h-[25%]" />
+          <Chart isActive={false} percent="21%" />
+          <Chart isActive={false} percent="19%" />
+          <Chart isActive={false} percent="49%" />
+          <Chart isActive percent="70%" />
+          <Chart isActive={false} percent="29%" />
+          <Chart isActive={false} percent="25%" />
         </div>
       </div>
     </div>
