@@ -9,7 +9,7 @@ interface ITab {
 export default function Tab({ children, active, onClick }: ITab) {
   return (
     <span
-      className={`relative flex-col text-lg cursor-pointer font-primary text-gray-700 font-normal capitalize opacity-50 ${
+      className={`relative flex flex-col text-sm md:text-lg cursor-pointer font-primary text-gray-700 font-normal capitalize opacity-50 ${
         active && 'opacity-100'
       }`}
       onClick={onClick}

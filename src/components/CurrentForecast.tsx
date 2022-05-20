@@ -4,9 +4,9 @@ import RainChart from './RainChart';
 
 export default function CurrentForecast() {
   return (
-    <div className="sticky right-0 h-screen w-96 bg-primary overflow-y-auto">
+    <div className="order-first lg:order-last relative lg:sticky right-0 h-auto w-full lg:h-screen lg:w-96 bg-primary overflow-y-hidden lg:overflow-y-auto">
       <div className="py-12 px-8">
-        <div className="flex flex-col gap-y-16">
+        <div className="relative flex flex-col gap-y-16">
           <div className="flex justify-between">
             <div className="flex items-center gap-x-8 text-white text-sm py-3">
               <span className="flex gap-x-2 items-center">
@@ -34,7 +34,7 @@ export default function CurrentForecast() {
               </div>
               <div className="flex flex-col gap-y-4 text-white">
                 <div className="flex mx-auto">
-                  <span className="font-thin tracking-wide text-8xl">28</span>
+                  <span className="font-thin tracking-wide text-8xl">6</span>
                   <span className="font-thin tracking-tighter text-3xl">°C</span>
                 </div>
                 <span className="flex items-center gap-x-0.5 mx-auto text-gray-500 text-sm">

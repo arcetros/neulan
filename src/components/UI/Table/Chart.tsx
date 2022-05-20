@@ -6,7 +6,7 @@ interface IChart {
 
 export default function Chart({ key, lowest, highest }: IChart) {
   return (
-    <div className="flex items-center w-full" key={key}>
+    <div className="hidden md:flex items-center w-full" key={key}>
       <div className="relative w-1/2">
         <div className="absolute -bottom-0 left-right transform translate-x-1/2 translate-y-1/2 z-0 border-t-gray-300 border-dashed border-t-2 h-1 w-full" />
         <div
