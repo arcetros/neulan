@@ -1,7 +1,5 @@
 import { FiSearch } from 'react-icons/fi';
 
-// sticky top-0 z-30
-
 export default function Header() {
   return (
     <header className="relative z-30 pt-12 bg-secondary">

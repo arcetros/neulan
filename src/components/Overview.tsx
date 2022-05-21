@@ -1,10 +1,57 @@
 import { useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
+import { IoMdWater } from 'react-icons/io';
+import { BiDownArrow, BiUpArrow } from 'react-icons/bi';
 import Header from './Header';
-import Table from './UI/Table';
 import Tab from './UI/Table/Tab';
+import Table from './UI/Table/Table';
+import TableCell from './UI/Table/TableCell';
+import TableRow from './UI/Table/TableRow';
+import XChart from './UI/Chart/XChart';
+import getTempPercent from '../helpers';
 
-const types = ['Week', 'Month', '3 Month', '6 Month'];
+const types = ['Hourly', 'Weekly'];
+
+// TODO: Change dummy data with dynamic data from API
+const hourly = [
+  { dt: '00:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
+  { dt: '03:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
+  { dt: '06:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
+  { dt: '09:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
+  { dt: '12:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
+  { dt: '15:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
+  { dt: '18:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
+  { dt: '22:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
+];
+const weekly = [
+  { dt: 'Sunday', humidity: 54, weather: { description: 'rain', icon: 'rain' }, temps: { temp_min: 12, temp_max: 24 } },
+  { dt: 'Monday', humidity: 54, weather: { description: 'rain', icon: 'rain' }, temps: { temp_min: 12, temp_max: 24 } },
+  {
+    dt: 'Tuesday',
+    humidity: 54,
+    weather: { description: 'rain', icon: 'rain' },
+    temps: { temp_min: 24, temp_max: 30 },
+  },
+  {
+    dt: 'Wednesday',
+    humidity: 54,
+    weather: { description: 'rain', icon: 'rain' },
+    temps: { temp_min: 19, temp_max: 24 },
+  },
+  {
+    dt: 'Thursday',
+    humidity: 54,
+    weather: { description: 'rain', icon: 'rain' },
+    temps: { temp_min: 14, temp_max: 18 },
+  },
+  { dt: 'Friday', humidity: 54, weather: { description: 'rain', icon: 'rain' }, temps: { temp_min: 12, temp_max: 23 } },
+  {
+    dt: 'Saturday',
+    humidity: 54,
+    weather: { description: 'rain', icon: 'rain' },
+    temps: { temp_min: 0, temp_max: 24 },
+  },
+];
 
 function Card() {
   return (
@@ -35,14 +82,79 @@ export default function Overview() {
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto flex justify-between md:justify-start gap-x-8 md:gap-x-16 mt-4">
+        <div className="overflow-x-auto flex gap-x-8 md:gap-x-16 mt-4">
           {types.map((item, index) => (
             <Tab key={index} active={active === item} onClick={() => setActive(item)}>
               {item}
             </Tab>
           ))}
         </div>
-        <Table />
+        <Table active={active === 'Hourly'}>
+          {hourly.map((item, id) => (
+            <TableRow key={id}>
+              <TableCell>{item.dt}</TableCell>
+              <TableCell>
+                <div className="flex gap-x-1 items-center">
+                  <IoMdWater className="text-blue-500" />
+                  <span className="flex-1 text-gray-500">{item.humidity}%</span>
+                </div>
+              </TableCell>
+              <TableCell>
+                <span className="text-blue-500">{item.weather.icon}</span>
+              </TableCell>
+              <TableCell>{item.temp}*C</TableCell>
+              <TableCell>feels like {item.feels_like}*C</TableCell>
+            </TableRow>
+          ))}
+        </Table>
+        <Table active={active === 'Weekly'}>
+          {weekly.map((item, id) => {
+            const temps = getTempPercent(item.temps.temp_min, item.temps.temp_max);
+            return (
+              <TableRow key={id}>
+                <TableCell className="w-1/12">{item.dt}</TableCell>
+                <TableCell className="w-1/12">
+                  <div className="flex gap-x-1 items-center">
+                    <IoMdWater className="text-blue-500" />
+                    <span className="flex-1 text-gray-500">{item.humidity}%</span>
+                  </div>
+                </TableCell>
+                <TableCell className="w-1/12">
+                  <span className="text-blue-500">{item.weather.icon}</span>
+                </TableCell>
+                <TableCell className="w-3/12">
+                  <div className="flex justify-between items-center gap-x-8">
+                    <span className="flex gap-x-1 text-gray-500">
+                      <span className="flex items-center md:hidden">
+                        <BiDownArrow className="fill-blue-500" />
+                      </span>
+                      {`${item.temps.temp_min}*C`}
+                    </span>
+                    {temps.map((temp, index) => {
+                      if (temp.highest === 0 || temp.lowest === 0) {
+                        return (
+                          <XChart
+                            key={index}
+                            lowest={temp.lowest && temp.lowest}
+                            highest={temp.highest && temp.highest}
+                          />
+                        );
+                      }
+                      return <XChart key={index} lowest={temp.lowest} highest={temp.highest} />;
+                    })}
+
+                    <span className="flex gap-x-1">
+                      <span className="flex items-center md:hidden">
+                        <BiUpArrow className="fill-red-500" />
+                      </span>
+                      {`${item.temps.temp_max}*C`}
+                    </span>
+                  </div>
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </Table>
       </main>
     </div>
   );

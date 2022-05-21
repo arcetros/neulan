@@ -20,6 +20,7 @@
     "react/jsx-props-no-spreading": ["off"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "react/jsx-one-expression-per-line": ["off"],
+    "react/require-default-props": ["off"],
     "import/prefer-default-export": ["off"],
     "object-curly-newline": ["off"],
     "react/no-array-index-key": ["off"],

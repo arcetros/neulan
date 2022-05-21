@@ -1,10 +1,10 @@
-interface IChart {
+interface IXChart {
   key: number;
   lowest: number;
   highest: number;
 }
 
-export default function Chart({ key, lowest, highest }: IChart) {
+export default function XChart({ key, lowest, highest }: IXChart) {
   return (
     <div className="hidden md:flex items-center w-full" key={key}>
       <div className="relative w-1/2">
