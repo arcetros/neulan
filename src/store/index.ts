@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch as useDispatchApp, useSelector as useSelectorApp } from 'react-redux';
 import weatherSlice from './weather-slice';
 
 export const store = configureStore({
@@ -9,5 +9,6 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useDispatch = () => useDispatchApp<AppDispatch>();
+export const useSelector: TypedUseSelectorHook<RootState> = useSelectorApp;
 export default store;

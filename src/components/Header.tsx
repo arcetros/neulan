@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FiSearch } from 'react-icons/fi';
-import { useAppDispatch } from '../store';
+import { useDispatch, useSelector } from '../store';
 import { fetchCity } from '../store/weather-actions';
 import useDebounce from '../hooks/useDebounce';
 
 export default function Header() {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const [value, setValue] = useState<string>('');
   const debounce = useDebounce(value, 500);
   const didMountRef = useRef(false);
+  const items = useSelector((state) => state.weather.all_cities);
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     setValue(event.currentTarget.value);
   };
@@ -26,7 +27,10 @@ export default function Header() {
     <header className="relative z-30 pt-12 bg-secondary">
       <div className="flex gap-x-4 items-center">
         <div className="relative w-full">
-          <FiSearch className="absolute top-1/2 transform -translate-y-1/2 left-3 w-5 h-auto text-gray-400" />
+          <FiSearch
+            className="absolute top-1/2 transform -translate-y-1/2 left-3 w-5 h-auto text-gray-400"
+            onClick={() => console.log(items.map((item) => item.name))}
+          />
           <input
             type="text"
             onChange={handleChange}

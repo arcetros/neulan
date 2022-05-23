@@ -1,4 +1,4 @@
-import { weatherActions, WeatherState } from './weather-slice';
+import { weatherActions } from './weather-slice';
 import { AppDispatch } from '.';
 
 export const fetchCity = (city: string) => async (dispatch: AppDispatch) => {
@@ -14,7 +14,7 @@ export const fetchCity = (city: string) => async (dispatch: AppDispatch) => {
   };
 
   try {
-    const cityData: WeatherState = await sendRequest();
+    const cityData = await sendRequest();
     dispatch(weatherActions.addCity(cityData));
   } catch (err) {
     // TODO: Dispatch an error handling with UI components

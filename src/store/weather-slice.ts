@@ -1,23 +1,17 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Forecasts } from '../types';
+import { CityModel, CityArrayModel } from '../types';
 
-export interface WeatherState {
-  cityData?: {};
-  forecasts: Forecasts[];
-}
-
-const initialState: WeatherState = {
-  cityData: [],
-  forecasts: [],
+const initialWeatherState: CityArrayModel = {
+  all_cities: [],
 };
 
 const weatherSlice = createSlice({
   name: 'weather',
-  initialState,
+  initialState: initialWeatherState,
   reducers: {
-    addCity(state, action: PayloadAction<WeatherState>) {
-      state.cityData = action.payload;
+    addCity(state, action: PayloadAction<CityModel[]>) {
+      state.all_cities = action.payload;
     },
   },
 });

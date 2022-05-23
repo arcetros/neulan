@@ -27,3 +27,16 @@ export type Forecasts = {
     pop: number;
   }>;
 };
+
+export interface CityModel {
+  name: string;
+  latitude: number;
+  longitude: number;
+  country: string;
+  population: number;
+  is_capital: boolean;
+}
+
+export interface CityArrayModel {
+  all_cities: CityModel[];
+}
