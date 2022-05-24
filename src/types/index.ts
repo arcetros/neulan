@@ -30,11 +30,10 @@ export type Forecasts = {
 
 export interface CityModel {
   name: string;
-  latitude: number;
-  longitude: number;
+  lat: number;
+  lon: number;
   country: string;
-  population: number;
-  is_capital: boolean;
+  state: string;
 }
 
 export interface CityArrayModel {

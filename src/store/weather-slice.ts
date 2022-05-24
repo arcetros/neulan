@@ -13,6 +13,9 @@ const weatherSlice = createSlice({
     addCity(state, action: PayloadAction<CityModel[]>) {
       state.all_cities = action.payload;
     },
+    clearCity(state) {
+      state.all_cities = [];
+    },
   },
 });
 

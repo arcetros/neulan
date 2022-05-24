@@ -3,9 +3,12 @@ import { AppDispatch } from '.';
 
 export const fetchCity = (city: string) => async (dispatch: AppDispatch) => {
   const sendRequest = async () => {
-    const response = await fetch(`https://api.api-ninjas.com/v1/city?name=${city}&limit=5`, {
-      headers: { 'X-Api-Key': 'TxPOaDQ0PFl6pSnDgtcNEA==JHthdXqxhEBOfQCO' },
-    });
+    if (!city) {
+      return null;
+    }
+    const response = await fetch(
+      `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${process.env.REACT_APP_CITY_API}`,
+    );
     if (!response.ok) {
       throw new Error('Response Failed');
     }
