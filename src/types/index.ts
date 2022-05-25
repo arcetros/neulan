@@ -13,20 +13,63 @@ export type CurrentWeather = {
   };
 };
 
-export type Forecasts = {
-  hourly: Array<{
-    dt: number;
-    temp: number;
-    weather: Array<{ id: number; description: string }>;
-    pop: number;
-  }>;
-  daily: Array<{
-    dt: number;
-    temp: { min: number; max: number };
-    weather: Array<{ id: number; description: string }>;
-    pop: number;
-  }>;
-};
+interface CurrentDay {
+  dt: number;
+  temp: number;
+  feels_like: number;
+  pressure: number;
+  humidity: number;
+  dew_point: number;
+  uvi: number;
+  clouds: number;
+  visibility: number;
+  wind_speed: number;
+  wind_deg: number;
+  wind_gust: number;
+  weather: [
+    {
+      id: number;
+      main: string;
+      description: string;
+      icon: string;
+    },
+  ];
+  pop: number;
+}
+
+interface HourlyForecast {
+  dt: number;
+  temp: number;
+  feels_like: number;
+  pressure: number;
+  humidity: number;
+  dew_point: number;
+  uvi: number;
+  clouds: number;
+  visibility: number;
+  wind_speed: number;
+  wind_deg: number;
+  wind_gust: number;
+  weather: [
+    {
+      id: number;
+      main: string;
+      description: string;
+      icon: string;
+    },
+  ];
+  pop: number;
+}
+
+export interface Forecasts {
+  lat: number;
+  lon: number;
+  timezone: string;
+  timezone_offset: number;
+  current: CurrentDay;
+  hourly: HourlyForecast[];
+  daily: string;
+}
 
 export interface CityModel {
   name: string;
@@ -38,4 +81,5 @@ export interface CityModel {
 
 export interface CityArrayModel {
   all_cities: CityModel[];
+  forecasts: Forecasts;
 }

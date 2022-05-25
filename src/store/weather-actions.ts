@@ -25,3 +25,23 @@ export const fetchCity = (city: string) => async (dispatch: AppDispatch) => {
     console.log(err);
   }
 };
+
+export const fetchWeather = (lat: number, lon: number) => async (dispatch: AppDispatch) => {
+  const sendRequest = async () => {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${process.env.REACT_APP_CITY_API}&units=metric`,
+    );
+    if (!response.ok) {
+      throw new Error('Response Failed');
+    }
+    const data = response.json();
+    return data;
+  };
+
+  try {
+    const forecastsData = await sendRequest();
+    dispatch(weatherActions.addForecast(forecastsData));
+  } catch (err) {
+    console.log(err);
+  }
+};

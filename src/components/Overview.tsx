@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import moment from 'moment';
 import { FiPlus } from 'react-icons/fi';
 import { IoMdWater } from 'react-icons/io';
 import { BiDownArrow, BiUpArrow } from 'react-icons/bi';
@@ -8,21 +9,11 @@ import Table from './UI/Table/Table';
 import TableCell from './UI/Table/TableCell';
 import TableRow from './UI/Table/TableRow';
 import XChart from './UI/Chart/XChart';
+import { useSelector } from '../store';
+import useMobile from '../hooks/useMobile';
 import getTempPercent from '../helpers';
 
 const types = ['Hourly', 'Weekly'];
-
-// TODO: Change dummy data with dynamic data from API
-const hourly = [
-  { dt: '00:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
-  { dt: '03:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
-  { dt: '06:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
-  { dt: '09:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
-  { dt: '12:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
-  { dt: '15:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
-  { dt: '18:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
-  { dt: '22:00', humidity: 54, weather: { description: 'rain', icon: 'rain' }, pop: 0.62, temp: 28, feels_like: 33.23 },
-];
 const weekly = [
   { dt: 'Sunday', humidity: 54, weather: { description: 'rain', icon: 'rain' }, temps: { temp_min: 12, temp_max: 24 } },
   { dt: 'Monday', humidity: 54, weather: { description: 'rain', icon: 'rain' }, temps: { temp_min: 12, temp_max: 24 } },
@@ -64,6 +55,8 @@ function Card() {
 
 export default function Overview() {
   const [active, setActive] = useState(types[0]);
+  const items = useSelector((state) => state.weather.forecasts);
+  const { isMobile } = useMobile();
   return (
     <div className="relative flex flex-col mx-auto max-w-xs md:max-w-full lg:max-w-[150rem] flex-1 overflow-y-auto overflow-x-hidden px-0 md:px-6 lg:px-16 pb-12">
       <Header />
@@ -89,21 +82,32 @@ export default function Overview() {
             </Tab>
           ))}
         </div>
+        {/* <button type="button" onClick={() => console.log(items.hourly)}>
+          test
+        </button> */}
         <Table active={active === 'Hourly'}>
-          {hourly.map((item, id) => (
+          {items?.hourly.slice(0, 13).map((item, id) => (
             <TableRow key={id}>
-              <TableCell>{item.dt}</TableCell>
+              <TableCell>
+                <div className="flex gap-x-1 md:gap-x-8 items-center">
+                  <p className="text-xs md:text-base w-12">{moment.unix(item.dt).format('LT')}</p>
+                  <img
+                    src={`http://openweathermap.org/img/wn/${item.weather.map((el) => el.icon)}${
+                      isMobile ? '' : '@2x'
+                    }.png`}
+                    alt="Weather Icon"
+                    className="relative"
+                  />
+                  <span className="text-2xl"> {Math.floor(item.temp)}°</span>
+                </div>
+              </TableCell>
+              <TableCell className="text-xs md:text-base">feels like {Math.floor(item.feels_like)}°</TableCell>
               <TableCell>
                 <div className="flex gap-x-1 items-center">
                   <IoMdWater className="text-blue-500" />
-                  <span className="flex-1 text-gray-500">{item.humidity}%</span>
+                  <span className="flex-1 text-gray-500">{Math.floor(item.pop * 100)}%</span>
                 </div>
               </TableCell>
-              <TableCell>
-                <span className="text-blue-500">{item.weather.icon}</span>
-              </TableCell>
-              <TableCell>{item.temp}*C</TableCell>
-              <TableCell>feels like {item.feels_like}*C</TableCell>
             </TableRow>
           ))}
         </Table>
