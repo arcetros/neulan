@@ -43,7 +43,7 @@ export default function Header() {
   return (
     <header className="z-30 pt-12 bg-secondary">
       <div className="flex flex-col gap-x-4">
-        <div className="relative w-1/3">
+        <div className="relative w-full md:w-96">
           <FiSearch className="absolute top-1/2 transform -translate-y-1/2 left-3 w-5 h-auto text-gray-400" />
           {value && (
             <HiX className="absolute top-1/2 transform -translate-y-1/2 right-3 w-5 h-auto text-gray-400 cursor-pointer" />
