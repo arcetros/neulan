@@ -122,5 +122,6 @@ export interface CityModel {
 
 export interface CityArrayModel {
   all_cities: CityModel[];
+  isRequested: boolean;
   forecasts: Forecasts;
 }

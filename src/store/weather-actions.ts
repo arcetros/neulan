@@ -27,6 +27,7 @@ export const fetchCity = (city: string) => async (dispatch: AppDispatch) => {
 };
 
 export const fetchWeather = (lat: number, lon: number) => async (dispatch: AppDispatch) => {
+  dispatch(weatherActions.forecastRequested());
   const sendRequest = async () => {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${process.env.REACT_APP_CITY_API}&units=metric`,
@@ -41,7 +42,9 @@ export const fetchWeather = (lat: number, lon: number) => async (dispatch: AppDi
   try {
     const forecastsData = await sendRequest();
     dispatch(weatherActions.addForecast(forecastsData));
+    dispatch(weatherActions.forecastReceived());
   } catch (err) {
     console.log(err);
+    dispatch(weatherActions.forecastReceived());
   }
 };

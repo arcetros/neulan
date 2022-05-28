@@ -27,9 +27,9 @@ export default function Header() {
     await dispatch(fetchWeather(lat, lon));
   };
 
-  // const handleReset = () => {
-  //   setValue('');
-  // };
+  const handleReset = () => {
+    setValue('');
+  };
 
   // TODO: Change this to navigator.geolocation later or else use random params
   // for dispatch
@@ -46,7 +46,10 @@ export default function Header() {
         <div className="relative w-full md:w-96">
           <FiSearch className="absolute top-1/2 transform -translate-y-1/2 left-3 w-5 h-auto text-gray-400" />
           {value && (
-            <HiX className="absolute top-1/2 transform -translate-y-1/2 right-3 w-5 h-auto text-gray-400 cursor-pointer" />
+            <HiX
+              className="absolute top-1/2 transform -translate-y-1/2 right-3 w-5 h-auto text-gray-400 cursor-pointer"
+              onClick={handleReset}
+            />
           )}
           <input
             type="text"

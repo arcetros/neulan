@@ -4,6 +4,7 @@ import { CityModel, CityArrayModel, Forecasts } from '../types';
 
 const initialWeatherState: CityArrayModel = {
   all_cities: [],
+  isRequested: false,
   forecasts: null as any,
 };
 
@@ -17,8 +18,12 @@ const weatherSlice = createSlice({
     addForecast(state, action: PayloadAction<Forecasts>) {
       state.forecasts = action.payload;
     },
-    clearCity(state) {
-      state.all_cities = [];
+    forecastRequested(state) {
+      state.forecasts = initialWeatherState.forecasts;
+      state.isRequested = true;
+    },
+    forecastReceived(state) {
+      state.isRequested = false;
     },
   },
 });
