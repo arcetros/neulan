@@ -112,6 +112,17 @@ export interface Forecasts {
   daily: DailyForecast[];
 }
 
+export interface GeoModel {
+  country_code: string;
+  country_name: string;
+  city: string;
+  postal: number;
+  latitude: number;
+  longitude: number;
+  IPv4: any;
+  state: string;
+}
+
 export interface CityModel {
   name: string;
   lat: number;
@@ -121,6 +132,7 @@ export interface CityModel {
 }
 
 export interface CityArrayModel {
+  geo: GeoModel;
   all_cities: CityModel[];
   isRequested: boolean;
   forecasts: Forecasts;

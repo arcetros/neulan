@@ -48,3 +48,19 @@ export const fetchWeather = (lat: number, lon: number) => async (dispatch: AppDi
     dispatch(weatherActions.forecastReceived());
   }
 };
+
+export const getGeo = () => async (dispatch: AppDispatch) => {
+  const getIp = async () => {
+    const response = await fetch('https://geolocation-db.com/json/');
+    const data = await response.json();
+    return data;
+  };
+
+  try {
+    const responseData = await getIp();
+    dispatch(weatherActions.getGeo(responseData));
+    dispatch(fetchWeather(responseData.latitude, responseData.longitude));
+  } catch (err) {
+    console.log(err);
+  }
+};

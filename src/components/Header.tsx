@@ -7,7 +7,12 @@ import { fetchCity, fetchWeather } from '../store/weather-actions';
 import useDebounce from '../hooks/useDebounce';
 import useToggle from '../hooks/useToggle';
 
-export default function Header() {
+interface IHeader {
+  // eslint-disable-next-line no-unused-vars
+  setFirstRender: (value: boolean) => void;
+}
+
+export default function Header({ setFirstRender }: IHeader) {
   const dispatch = useDispatch();
   const [value, setValue] = useState<string>('');
   const [toggle, setToggle] = useToggle(false);
@@ -25,14 +30,13 @@ export default function Header() {
 
   const handleSelect = async (lat: number, lon: number) => {
     await dispatch(fetchWeather(lat, lon));
+    setFirstRender(false);
   };
 
   const handleReset = () => {
     setValue('');
   };
 
-  // TODO: Change this to navigator.geolocation later or else use random params
-  // for dispatch
   useEffect(() => {
     if (didMountRef.current) {
       dispatch(fetchCity(value));

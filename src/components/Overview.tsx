@@ -11,20 +11,21 @@ const types = ['Hourly', 'Weekly']; // Weather Types
 
 export default function Overview() {
   const [active, setActive] = useState(types[0]);
+  const [firstRender, setFirstRender] = useState<boolean>(true);
   const items = useSelector((state) => state.weather.forecasts);
   const scrollToElement = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (items) {
-      if (scrollToElement.current) {
+      if (!firstRender && scrollToElement.current) {
         scrollToElement.current.scrollIntoView({ behavior: 'smooth' });
       }
     }
-  }, [items]);
+  }, [items, firstRender]);
 
   return (
     <div className="relative flex flex-col mx-auto max-w-xs md:max-w-full lg:max-w-[150rem] flex-1 overflow-y-auto overflow-x-hidden px-0 md:px-6 lg:px-16 pb-12">
-      <Header />
+      <Header setFirstRender={setFirstRender} />
       <main className="flex flex-col pt-8 gap-y-8">
         <span className="font-thin text-4xl text-gray-700">
           Weather <span className="font-bold">Forecast</span>
