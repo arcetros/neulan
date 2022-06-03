@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import moment from 'moment';
+import momenttz from 'moment-timezone';
 import { IoMdWater } from 'react-icons/io';
 import { Forecasts } from '../types';
 import useMobile from '../hooks/useMobile';
@@ -24,11 +25,14 @@ function Hourly({ active, items }: IHourly) {
     <Table active={active === 'Hourly'}>
       {items?.hourly.slice(0, 13).map((item, id) => {
         const isActive = id === activeIndex;
+        const dateTime = moment.unix(item.dt).format();
+        const offset = items?.timezone;
+        const currentTime = momenttz.tz(dateTime, offset);
         return (
           <TableRow key={id} onClick={() => setActiveIndex(id)} isActive={isActive} disable={setActiveIndex}>
             <TableCell>
               <div className="flex gap-x-1 items-center">
-                <p className="text-sm md:text-base w-12 md:w-24 text-gray-800">{moment.unix(item.dt).format('LT')}</p>
+                <p className="text-sm md:text-base w-12 md:w-24 text-gray-800">{currentTime.format('LT')}</p>
                 <img
                   src={`http://openweathermap.org/img/wn/${item.weather.map((el) => el.icon)}${
                     isMobile ? '' : '@2x'

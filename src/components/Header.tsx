@@ -3,9 +3,11 @@ import { FiSearch } from 'react-icons/fi';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { HiX } from 'react-icons/hi';
 import { useDispatch, useSelector } from '../store';
-import { fetchCity, fetchWeather } from '../store/weather-actions';
+import { fetchCity, fetchWeather, fetchForecast } from '../store/weather-actions';
 import useDebounce from '../hooks/useDebounce';
 import useToggle from '../hooks/useToggle';
+import { SelectedCity } from '../types';
+import { weatherActions } from '../store/weather-slice';
 
 interface IHeader {
   // eslint-disable-next-line no-unused-vars
@@ -18,7 +20,7 @@ export default function Header({ setFirstRender }: IHeader) {
   const [toggle, setToggle] = useToggle(false);
   const debounce = useDebounce(value, 500);
   const didMountRef = useRef(false);
-  const items = useSelector((state) => state.weather.all_cities);
+  const items = useSelector((state) => state.weather.cities);
 
   const handleChange = async (event: React.FormEvent<HTMLInputElement>) => {
     if (event.currentTarget.value) {
@@ -28,13 +30,16 @@ export default function Header({ setFirstRender }: IHeader) {
     }
   };
 
-  const handleSelect = async (lat: number, lon: number) => {
-    await dispatch(fetchWeather(lat, lon));
-    setFirstRender(false);
-  };
-
   const handleReset = () => {
     setValue('');
+  };
+
+  const handleSelect = async (lat: number, lon: number, item: SelectedCity) => {
+    await dispatch(fetchWeather(lat, lon));
+    await dispatch(fetchForecast(lat, lon));
+    dispatch(weatherActions.selectCity(item));
+    setFirstRender(false);
+    handleReset();
   };
 
   useEffect(() => {
@@ -64,25 +69,27 @@ export default function Header({ setFirstRender }: IHeader) {
             onFocus={setToggle}
             onBlur={setToggle}
           />
-        </div>
-        {toggle && (
-          <ul className="bg-white border border-gray-100 w-full rounded-b-lg mt-0.5">
-            {items?.map((item, id) => (
-              <li
-                key={id}
-                className="flex items-center gap-x-4 px-3 py-1.5 border-b-1 border-gray-100 relative cursor-pointer hover:bg-yellow-50 hover:text-gray-900"
-                onMouseDown={() => handleSelect(item.lat, item.lon)}
-                aria-hidden
-              >
-                <FaMapMarkerAlt className="text-gray-400  w-4 h-4" />
+          {toggle && (
+            <ul className="absolute bg-white border border-gray-100 w-full rounded-b-lg mt-0.5">
+              {items?.map((item, id) => (
+                <li
+                  key={id}
+                  className="flex items-center gap-x-4 px-3 py-1.5 border-b-1 border-gray-100 relative cursor-pointer hover:bg-yellow-50 hover:text-gray-900"
+                  onMouseDown={() => handleSelect(item.lat, item.lon, item)}
+                  aria-hidden
+                >
+                  <FaMapMarkerAlt className="text-gray-400  w-4 h-4" />
 
-                <span className="text-gray-800 text-sm font-light">
-                  {item.name}, {item.state}, {item.country}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
+                  <span className="text-gray-800 text-sm font-light">
+                    {item.name}
+                    {item.state && `, ${item.state}`}
+                    {item.country && `, ${item.country}`}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </header>
   );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import moment from 'moment';
+import momenttz from 'moment-timezone';
 import { BiDownArrow, BiUpArrow } from 'react-icons/bi';
 import { IoMdWater } from 'react-icons/io';
 
@@ -27,6 +28,9 @@ function Hourly({ active, items }: IHourly) {
       {items?.daily.map((item, id) => {
         const temps = getTempPercent(item.temp.min, item.temp.max);
         const isActive = id === activeIndex;
+        const dateTime = moment.unix(item.dt).format();
+        const offset = items?.timezone;
+        const currentTime = momenttz.tz(dateTime, offset);
         return (
           <TableRow key={id} onClick={() => setActiveIndex(id)} isActive={isActive} disable={setActiveIndex}>
             <TableCell className="flex flex-1 md:flex-initial justify-between items-center">
@@ -34,7 +38,7 @@ function Hourly({ active, items }: IHourly) {
                 <span className="text-sm md:text-base text-gray-800">
                   {id === 0 ? 'Today' : moment.unix(item.dt).format('ddd')}
                 </span>
-                <span className="text-xs">{moment.unix(item.dt).format('M/D')}</span>
+                <span className="text-xs">{currentTime.format('M/D')}</span>
               </div>
 
               <img

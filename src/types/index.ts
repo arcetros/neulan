@@ -1,6 +1,6 @@
-export type CurrentWeather = {
-  weather: Array<{ id: number; description: string }>;
-  main: { temp: number; humidity: number };
+export interface CurrentWeather {
+  weather: Array<{ id: number; description: string; main: string; icon: string }>;
+  main: { temp: number; feels_like: number; temp_min: number; temp_max: number; pressure: number; humidity: number };
   wind: { speed: number };
   name: string;
   sys: {
@@ -11,7 +11,7 @@ export type CurrentWeather = {
     lat: number;
     lon: number;
   };
-};
+}
 
 interface CurrentDay {
   dt: number;
@@ -123,6 +123,14 @@ export interface GeoModel {
   state: string;
 }
 
+export interface SelectedCity {
+  name: string;
+  lat: number;
+  lon: number;
+
+  country: string;
+}
+
 export interface CityModel {
   name: string;
   lat: number;
@@ -132,8 +140,10 @@ export interface CityModel {
 }
 
 export interface CityArrayModel {
-  geo: GeoModel;
-  all_cities: CityModel[];
+  my_location: GeoModel;
+  current_weather: CurrentWeather;
+  cities: CityModel[];
+  selected_city: SelectedCity;
   isRequested: boolean;
   forecasts: Forecasts;
 }
