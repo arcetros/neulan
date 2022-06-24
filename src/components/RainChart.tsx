@@ -9,12 +9,9 @@ interface IIsActive {
 }
 
 function Chart({ isActive, percent, dateTime }: IIsActive) {
-  const now = moment();
   const time = moment.unix(dateTime.dt).format();
   const offset = dateTime?.offset;
-  const nowTz = momenttz.tz(now, offset);
   const currentTime = momenttz.tz(time, offset);
-  console.log(nowTz.format('HH'));
   return (
     <div className="relative">
       <div

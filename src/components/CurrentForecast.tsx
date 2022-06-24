@@ -7,12 +7,29 @@ import RainChart from './RainChart';
 import { Date, Temperature, Location } from './UI/Skeleton/CurrentSkeleton';
 
 export default function CurrentForecast() {
+  const isMobile = useMobile();
+
   const currentWeather = useSelector((state) => state.weather?.current_weather);
   const currentForecast = useSelector((state) => state.weather?.forecasts);
   const dailyForecast = useSelector((state) => state.weather?.forecasts?.daily[0]);
 
-  const isMobile = useMobile();
-  const currentTime = momenttz.tz(currentForecast?.timezone).format('LT');
+  const now = moment();
+  const offset = currentForecast?.timezone;
+  const currentDate = momenttz.tz(now, offset);
+  const currentTime = parseInt(momenttz.tz(now, offset).format('HH'), 10);
+
+  let statusDay = 'Sunset';
+  if (currentTime >= 20 || currentTime < 12) statusDay = 'Sunrise';
+
+  const getStatus = (status: any) => {
+    if (status) {
+      const formatUnix = moment.unix(status).format();
+      const formattedTime = momenttz.tz(formatUnix, offset);
+      return formattedTime.format('LT');
+    }
+
+    return 'Loading';
+  };
 
   return (
     <div className="order-first lg:order-last relative lg:sticky right-0 h-auto w-full lg:h-screen lg:w-[27rem] bg-primary overflow-y-hidden lg:overflow-y-auto">
@@ -48,9 +65,7 @@ export default function CurrentForecast() {
                     />
                     <div className="flex flex-col gap-y-1 text-white">
                       <span className="text-xl tracking-wide ">Today</span>
-                      <span className="text-gray-300 text-xs">
-                        {moment().format('MMMM Do')}, {currentTime}
-                      </span>
+                      <span className="text-gray-300 text-xs">{currentDate.format('dddd, MMMM DD')}</span>
                     </div>
                   </>
                 ) : (
@@ -78,8 +93,9 @@ export default function CurrentForecast() {
                       </span>
                     </span>
                     <span className="mx-auto text-gray-500">
-                      Feels like {currentWeather?.main.feels_like.toFixed(0)} <span className="text-white mx-3">•</span>{' '}
-                      Sunset {moment.unix(dailyForecast?.sunset).format('LT')}
+                      Feels like {currentWeather?.main.feels_like.toFixed(0)} <span className="text-white mx-3">•</span>
+                      {statusDay === 'Sunset' && `Sunset ${getStatus(dailyForecast?.sunset)}`}
+                      {statusDay === 'Sunrise' && `Sunrise ${getStatus(dailyForecast?.sunrise)}`}
                     </span>
                   </>
                 ) : (
