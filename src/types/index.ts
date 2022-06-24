@@ -7,6 +7,7 @@ export interface CurrentWeather {
     country: string;
   };
   dt: number;
+  timezone: number;
   coord: {
     lat: number;
     lon: number;

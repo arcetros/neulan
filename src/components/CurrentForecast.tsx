@@ -15,7 +15,7 @@ export default function CurrentForecast() {
   const currentTime = momenttz.tz(currentForecast?.timezone).format('LT');
 
   return (
-    <div className="order-first lg:order-last relative lg:sticky right-0 h-auto w-full lg:h-screen lg:w-96 bg-primary overflow-y-hidden lg:overflow-y-auto">
+    <div className="order-first lg:order-last relative lg:sticky right-0 h-auto w-full lg:h-screen lg:w-[27rem] bg-primary overflow-y-hidden lg:overflow-y-auto">
       <div className="py-12 px-8">
         <div className="relative flex flex-col gap-y-16">
           <div className="flex justify-between">

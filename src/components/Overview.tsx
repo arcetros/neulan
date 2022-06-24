@@ -24,7 +24,7 @@ export default function Overview() {
   }, [items, firstRender]);
 
   return (
-    <div className="relative flex flex-col mx-auto max-w-xs md:max-w-full lg:max-w-[150rem] flex-1 overflow-y-auto overflow-x-hidden px-0 md:px-6 lg:px-16 pb-12">
+    <div className="relative flex flex-col mx-auto max-w-[90%] md:max-w-full lg:max-w-[150rem] flex-1 overflow-y-auto overflow-x-hidden md:px-6 lg:px-16 pb-12">
       <Header setFirstRender={setFirstRender} />
       <main className="flex flex-col pt-8 gap-y-8">
         <span className="font-thin text-4xl text-gray-700">
