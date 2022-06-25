@@ -4,10 +4,11 @@ interface ITableCell {
   children: React.ReactNode;
   onClick: () => void;
   isActive?: boolean;
+  content?: any;
   disable: (state: any) => typeof state;
 }
 
-export default function TableRow({ children, onClick, isActive, disable }: ITableCell) {
+export default function TableRow({ children, onClick, isActive, disable, content }: ITableCell) {
   const contentSpace = useRef<HTMLDivElement>(null);
 
   const handleClick = useCallback(() => {
@@ -32,11 +33,7 @@ export default function TableRow({ children, onClick, isActive, disable }: ITabl
         className="overflow-hidden transition-max-height duration-700 ease-in-out"
         aria-hidden
       >
-        <div className="bg-slate-50 py-10 px-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas repellendus tempore nisi reiciendis quas
-          quibusdam at debitis soluta aliquam sint eaque maxime incidunt quidem similique rem sapiente, iusto ratione
-          vel?
-        </div>
+        <div className="bg-slate-50 py-10 px-4">{content}</div>
       </div>
     </div>
   );

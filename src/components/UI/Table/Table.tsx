@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ITable {
-  children: React.ReactNode;
+  children: any;
   active: Boolean;
 }
 

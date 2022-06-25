@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 import moment from 'moment';
 import momenttz from 'moment-timezone';
-import { IoMdWater } from 'react-icons/io';
+import { IoMdWater, IoMdSpeedometer } from 'react-icons/io';
+import { BsDroplet } from 'react-icons/bs';
+import { GiSunRadiations } from 'react-icons/gi';
 import { Forecasts } from '../types';
 import useMobile from '../hooks/useMobile';
 import Table from './UI/Table/Table';
@@ -12,11 +14,11 @@ interface IHourly {
   active: string;
   items: Forecasts;
 }
-
 function Hourly({ active, items }: IHourly) {
   const [activeIndex, setActiveIndex] = useState(null as any);
   const { isMobile } = useMobile();
 
+  const handleActive = useCallback((id: number) => setActiveIndex(id), []);
   useEffect(() => {
     setActiveIndex(null);
   }, [active]);
@@ -28,8 +30,37 @@ function Hourly({ active, items }: IHourly) {
         const dateTime = moment.unix(item.dt).format();
         const offset = items?.timezone;
         const currentTime = momenttz.tz(dateTime, offset);
+        const test = (
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col">
+              <span className="font-bold capitalize">{item.weather[0].description}</span>
+              <span>The temperature will be {item.temp.toFixed(0)}°</span>
+            </div>
+            <div className="flex flex-col gap-y-0.5 text-xs">
+              <div className="flex gap-1 items-center">
+                <GiSunRadiations />
+                <span className="">UVI {item.uvi.toFixed(0)}</span>
+              </div>
+              <div className="flex gap-1 items-center">
+                <BsDroplet />
+                <span>Humidity {item.humidity}%</span>
+              </div>
+              <div className="flex gap-1 items-center">
+                <IoMdSpeedometer />
+                <span>Preassure {item.pressure}hpa</span>
+              </div>
+            </div>
+          </div>
+        );
+        console.log(item);
         return (
-          <TableRow key={id} onClick={() => setActiveIndex(id)} isActive={isActive} disable={setActiveIndex}>
+          <TableRow
+            content={test}
+            key={id}
+            onClick={() => handleActive(id)}
+            isActive={isActive}
+            disable={setActiveIndex}
+          >
             <TableCell>
               <div className="flex gap-x-1 items-center">
                 <p className="text-sm md:text-base w-12 md:w-24 text-gray-800">{currentTime.format('LT')}</p>
@@ -57,4 +88,4 @@ function Hourly({ active, items }: IHourly) {
   );
 }
 
-export default Hourly;
+export default memo(Hourly);
