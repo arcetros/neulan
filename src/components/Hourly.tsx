@@ -30,9 +30,9 @@ function Hourly({ active, items }: IHourly) {
         const dateTime = moment.unix(item.dt).format();
         const offset = items?.timezone;
         const currentTime = momenttz.tz(dateTime, offset);
-        const test = (
+        const content = (
           <div className="flex items-center justify-between">
-            <div className="flex flex-col">
+            <div className="flex flex-col text-xs">
               <span className="font-bold capitalize">{item.weather[0].description}</span>
               <span>The temperature will be {item.temp.toFixed(0)}°</span>
             </div>
@@ -52,10 +52,9 @@ function Hourly({ active, items }: IHourly) {
             </div>
           </div>
         );
-        console.log(item);
         return (
           <TableRow
-            content={test}
+            content={content}
             key={id}
             onClick={() => handleActive(id)}
             isActive={isActive}

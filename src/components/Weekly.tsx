@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import moment from 'moment';
 import momenttz from 'moment-timezone';
 import { BiDownArrow, BiUpArrow } from 'react-icons/bi';
-import { IoMdWater } from 'react-icons/io';
+import { IoMdWater, IoMdSpeedometer } from 'react-icons/io';
+import { WiSunrise } from 'react-icons/wi';
+import { BsDroplet, BsSunFill, BsSunset, BsFillMoonFill } from 'react-icons/bs';
+import { GiSunRadiations } from 'react-icons/gi';
 
 import { Forecasts } from '../types';
 import useMobile from '../hooks/useMobile';
@@ -31,8 +34,60 @@ function Hourly({ active, items }: IHourly) {
         const dateTime = moment.unix(item.dt).format();
         const offset = items?.timezone;
         const currentTime = momenttz.tz(dateTime, offset);
+        const content = (
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="flex flex-col text-xs">
+              <span className="font-bold capitalize">{item.weather[0].description}</span>
+              <span>
+                The high will be {item.temp.max.toFixed(0)}°, The Lowest {item.temp.min.toFixed(0)}°
+              </span>
+              <div className="mt-4 flex justify-between md:justify-start w-full text-xs">
+                <div className="flex flex-col gap-y-2 pr-4">
+                  <h1>Morning</h1>
+                  <WiSunrise className="mx-auto w-6 h-6 text-gray-700" />
+                  <span className="mx-auto">{item.temp.morn.toFixed(0)}°</span>
+                </div>
+                <div className="flex flex-col gap-y-2 px-4">
+                  <h1>Afternoon</h1>
+                  <BsSunFill className="mx-auto w-6 h-6 text-gray-700" />
+                  <span className="mx-auto">{item.temp.day.toFixed(0)}°</span>
+                </div>
+                <div className="flex flex-col gap-y-2 px-4">
+                  <h1>Evening</h1>
+                  <BsSunset className="mx-auto w-6 h-6 text-gray-700" />
+                  <span className="mx-auto">{item.temp.eve.toFixed(0)}°</span>
+                </div>
+                <div className="flex flex-col gap-y-2 px-4">
+                  <h1>Night</h1>
+                  <BsFillMoonFill className="mx-auto w-6 h-6 text-gray-700" />
+                  <span className="mx-auto">{item.temp.night.toFixed(0)}°</span>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-row justify-around md:flex-col mt-3 gap-y-0.5 text-xs w-full md:w-auto">
+              <div className="flex gap-1 items-center">
+                <GiSunRadiations />
+                <span className="">UVI {item.uvi.toFixed(0)}</span>
+              </div>
+              <div className="flex gap-1 items-center">
+                <BsDroplet />
+                <span>Humidity {item.humidity}%</span>
+              </div>
+              <div className="flex gap-1 items-center">
+                <IoMdSpeedometer />
+                <span>{item.pressure}hpa</span>
+              </div>
+            </div>
+          </div>
+        );
         return (
-          <TableRow key={id} onClick={() => setActiveIndex(id)} isActive={isActive} disable={setActiveIndex}>
+          <TableRow
+            content={content}
+            key={id}
+            onClick={() => setActiveIndex(id)}
+            isActive={isActive}
+            disable={setActiveIndex}
+          >
             <TableCell className="flex flex-1 md:flex-initial justify-between items-center">
               <div className="flex flex-col items-left w-24">
                 <span className="text-sm md:text-base text-gray-800">

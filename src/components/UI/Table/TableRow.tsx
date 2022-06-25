@@ -33,7 +33,7 @@ export default function TableRow({ children, onClick, isActive, disable, content
         className="overflow-hidden transition-max-height duration-700 ease-in-out"
         aria-hidden
       >
-        <div className="bg-slate-50 py-10 px-4">{content}</div>
+        <div className="bg-slate-50 py-5 px-4">{content}</div>
       </div>
     </div>
   );
