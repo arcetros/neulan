@@ -1,9 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
-import { FiPlus } from 'react-icons/fi';
+import { useState } from 'react';
 import { useSelector } from '../store';
-import Header from './Header';
 import Tab from './UI/Table/Tab';
-import Card from './UI/Card';
 import Hourly from './Hourly';
 import Weekly from './Weekly';
 
@@ -11,48 +8,28 @@ const types = ['Hourly', 'Weekly']; // Weather Types
 
 export default function Overview() {
   const [active, setActive] = useState(types[0]);
-  const [firstRender, setFirstRender] = useState<boolean>(true);
   const items = useSelector((state) => state.weather.forecasts);
-  const scrollToElement = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (items) {
-      if (!firstRender && scrollToElement.current) {
-        scrollToElement.current.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, [items, firstRender]);
+  const selectedCity = useSelector((state) => state.weather.current_weather);
 
   return (
     <div className="relative flex flex-col mx-auto max-w-[90%] md:max-w-full lg:max-w-[150rem] flex-1 overflow-y-auto overflow-x-hidden md:px-6 lg:px-16 pb-12">
-      <Header setFirstRender={setFirstRender} />
       <main className="flex flex-col pt-8 gap-y-8">
-        <span className="font-thin text-4xl text-gray-700">
-          Weather <span className="font-bold">Forecast</span>
-        </span>
-        <div className="flex overflow-x-auto gap-x-8">
-          <Card image="bg-[url('https://source.unsplash.com/random/?city,night')]" />
-          <Card image="bg-[url('https://source.unsplash.com/random/?city,night')]" />
-          <Card image="bg-[url('https://source.unsplash.com/random/?city,night')]" />
-          <div className="flex flex-none rounded-xl border border-primary h-56 w-48">
-            <div className="flex flex-col gap-y-8 m-auto border-border-primary text-primary">
-              <FiPlus className="m-auto w-5 h-auto" />
-              <span className="font-medium">Add city</span>
-            </div>
-          </div>
-        </div>
+        <div className="flex flex-row items-center justify-between">
+          <span className="font-thin text-2xl md:text-4xl text-gray-700">
+            {`${selectedCity?.name}, `} <span className="font-bold">{selectedCity?.sys.country}</span>
+          </span>
 
-        <div ref={scrollToElement}>
-          <div className="overflow-x-auto flex gap-x-8 md:gap-x-16 mt-4">
+          <div className="flex items-center gap-x-8 md:gap-x-16">
             {types.map((item, index) => (
               <Tab key={index} active={active === item} onClick={() => setActive(item)}>
                 {item}
               </Tab>
             ))}
           </div>
-          <Hourly items={items} active={active} />
-          <Weekly items={items} active={active} />
         </div>
+
+        <Hourly items={items} active={active} />
+        <Weekly items={items} active={active} />
       </main>
     </div>
   );

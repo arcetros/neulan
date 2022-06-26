@@ -5,6 +5,7 @@ import useMobile from '../hooks/useMobile';
 import { useSelector } from '../store';
 import RainChart from './RainChart';
 import { Date, Temperature, Location } from './UI/Skeleton/CurrentSkeleton';
+import Header from './Header';
 
 export default function CurrentForecast() {
   const isMobile = useMobile();
@@ -32,25 +33,10 @@ export default function CurrentForecast() {
   };
 
   return (
-    <div className="order-first lg:order-last relative lg:sticky right-0 h-auto w-full lg:h-screen lg:w-[27rem] bg-primary overflow-y-hidden lg:overflow-y-auto">
-      <div className="py-12 px-8">
-        <div className="relative flex flex-col gap-y-16">
-          <div className="flex justify-between">
-            <div className="flex items-center gap-x-8 text-white text-sm py-3">
-              <span className="flex gap-x-2 items-center">
-                Notificatons
-                <span className="bg-red-500 px-2 py-1 rounded-md">4</span>
-              </span>
-              <span>Places</span>
-            </div>
-            <div className="flex items-center">
-              <img
-                src="https://prod-images-static.radiopaedia.org/images/52448145/2657bc7654a8668048a172d2f88691b4a71d480931d0d6e1336744b38ba448fe_jumbo.jpeg"
-                alt="racoon"
-                className="w-12 h-12 rounded-xl"
-              />
-            </div>
-          </div>
+    <div className="order-first lg:order-last relative lg:sticky right-0 h-auto lg:h-screen w-full lg:w-[27rem] bg-primary overflow-y-hidden lg:overflow-y-auto">
+      <div className="py-12 px-8 h-full">
+        <div className="relative flex flex-col gap-y-16 h-full">
+          <Header />
           <div className="w-full">
             <div className="flex flex-col gap-y-4">
               <div className="flex items-center justify-center gap-x-4">
@@ -105,6 +91,7 @@ export default function CurrentForecast() {
             </div>
           </div>
           <RainChart />
+          <div className="pb-1 hidden lg:block" />
         </div>
       </div>
     </div>

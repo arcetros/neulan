@@ -3,19 +3,18 @@ import momenttz from 'moment-timezone';
 import { useSelector } from '../store';
 
 interface IIsActive {
-  isActive: boolean;
   percent: string;
   dateTime: { dt: number; offset: string };
 }
 
-function Chart({ isActive, percent, dateTime }: IIsActive) {
+function Chart({ percent, dateTime }: IIsActive) {
   const time = moment.unix(dateTime.dt).format();
   const offset = dateTime?.offset;
   const currentTime = momenttz.tz(time, offset);
   return (
     <div className="relative">
       <div
-        className={`absolute bottom-0 ${isActive ? 'bg-yellow-400' : 'bg-gray-700'} w-[10px] rounded z-10`}
+        className="absolute bottom-0 bg-yellow-400 w-[10px] z-20 rounded-lg"
         style={{ height: percent && percent }}
       />
       <div className="absolute bottom-0 left-[0.9px] transform translate-x-1/2 z-0 border-l-gray-700 border-dashed border-l-2 w-1 h-full" />
@@ -39,36 +38,12 @@ export default function RainChart() {
           </div>
           {items && (
             <>
-              <Chart
-                isActive={false}
-                percent={`${items[0].pop * 100}%`}
-                dateTime={{ dt: items[0].dt, offset: timezone }}
-              />
-              <Chart
-                isActive={false}
-                percent={`${items[3].pop * 100}%`}
-                dateTime={{ dt: items[3].dt, offset: timezone }}
-              />
-              <Chart
-                isActive={false}
-                percent={`${items[6].pop * 100}%`}
-                dateTime={{ dt: items[6].dt, offset: timezone }}
-              />
-              <Chart
-                percent={`${items[9].pop * 100}%`}
-                dateTime={{ dt: items[9].dt, offset: timezone }}
-                isActive={false}
-              />
-              <Chart
-                isActive={false}
-                percent={`${items[12].pop * 100}%`}
-                dateTime={{ dt: items[12].dt, offset: timezone }}
-              />
-              <Chart
-                isActive={false}
-                percent={`${items[15].pop * 100}%`}
-                dateTime={{ dt: items[15].dt, offset: timezone }}
-              />
+              <Chart percent={`${items[0].pop * 100}%`} dateTime={{ dt: items[0].dt, offset: timezone }} />
+              <Chart percent={`${items[3].pop * 100}%`} dateTime={{ dt: items[3].dt, offset: timezone }} />
+              <Chart percent={`${items[6].pop * 100}%`} dateTime={{ dt: items[6].dt, offset: timezone }} />
+              <Chart percent={`${items[9].pop * 100}%`} dateTime={{ dt: items[9].dt, offset: timezone }} />
+              <Chart percent={`${items[12].pop * 100}%`} dateTime={{ dt: items[12].dt, offset: timezone }} />
+              <Chart percent={`${items[15].pop * 100}%`} dateTime={{ dt: items[15].dt, offset: timezone }} />
             </>
           )}
         </div>

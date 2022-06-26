@@ -9,12 +9,7 @@ import useToggle from '../hooks/useToggle';
 import { SelectedCity } from '../types';
 import { weatherActions } from '../store/weather-slice';
 
-interface IHeader {
-  // eslint-disable-next-line no-unused-vars
-  setFirstRender: (value: boolean) => void;
-}
-
-export default function Header({ setFirstRender }: IHeader) {
+export default function Header() {
   const dispatch = useDispatch();
   const [value, setValue] = useState<string>('');
   const [toggle, setToggle] = useToggle(false);
@@ -38,7 +33,6 @@ export default function Header({ setFirstRender }: IHeader) {
     await dispatch(fetchWeather(lat, lon));
     await dispatch(fetchForecast(lat, lon));
     dispatch(weatherActions.selectCity(item));
-    setFirstRender(false);
     handleReset();
   };
 
@@ -50,9 +44,9 @@ export default function Header({ setFirstRender }: IHeader) {
   }, [debounce]);
 
   return (
-    <header className="z-30 pt-12 bg-secondary">
+    <header className="z-30">
       <div className="flex flex-col gap-x-4">
-        <div className="relative w-full md:w-96">
+        <div className="relative w-full">
           <FiSearch className="absolute top-1/2 transform -translate-y-1/2 left-3 w-5 h-auto text-gray-400" />
           {value && (
             <HiX
@@ -64,23 +58,25 @@ export default function Header({ setFirstRender }: IHeader) {
             type="text"
             onChange={handleChange}
             placeholder="Search new place"
-            className="w-full px-0 lg:px-11 py-3 pl-10 rounded-t-md outline-none placeholder:text-sm"
+            className={`w-full bg-[#1f114c] text-gray-200 px-0 lg:px-11 py-3 pl-10 outline-none placeholder:text-sm ${
+              toggle ? 'rounded-t-xl' : 'rounded-xl'
+            }`}
             value={value}
             onFocus={setToggle}
             onBlur={setToggle}
           />
           {toggle && (
-            <ul className="absolute bg-white border border-gray-100 w-full rounded-b-lg mt-0.5">
+            <ul className="absolute bg-[#1f114c] w-full rounded-b-xl -mt-0.8">
               {items?.map((item, id) => (
                 <li
                   key={id}
-                  className="flex items-center gap-x-4 px-3 py-1.5 border-b-1 border-gray-100 relative cursor-pointer hover:bg-yellow-50 hover:text-gray-900"
+                  className="flex items-center gap-x-4 px-3 py-1.5 relative cursor-pointer "
                   onMouseDown={() => handleSelect(item.lat, item.lon, item)}
                   aria-hidden
                 >
                   <FaMapMarkerAlt className="text-gray-400  w-4 h-4" />
 
-                  <span className="text-gray-800 text-sm font-light">
+                  <span className="text-gray-200 text-sm font-light">
                     {item.name}
                     {item.state && `, ${item.state}`}
                     {item.country && `, ${item.country}`}

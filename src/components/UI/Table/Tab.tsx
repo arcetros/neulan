@@ -9,14 +9,14 @@ interface ITab {
 export default function Tab({ children, active, onClick }: ITab) {
   return (
     <span
-      className={`relative flex flex-col text-sm md:text-lg cursor-pointer font-primary text-gray-700 font-normal capitalize opacity-50 ${
+      className={`relative flex flex-col text-sm md:text-lg cursor-pointer font-primary text-gray-700 font-normal capitalize opacity-50 pointer ${
         active && 'opacity-100'
       }`}
       onClick={onClick}
       aria-hidden
     >
       {children}
-      {active && <div className="mx-auto w-2 h-2 mt-1 rounded-full bg-gray-700" />}
+      {active && <div className="absolute w-full -bottom-1 h-1 mt-1 bg-primary" />}
     </span>
   );
 }
