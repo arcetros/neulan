@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from '../store';
 import Tab from './UI/Table/Tab';
+import Heading from './UI/Heading';
 import Hourly from './Hourly';
 import Weekly from './Weekly';
 
@@ -15,9 +16,9 @@ export default function Overview() {
     <div className="relative flex flex-col mx-auto max-w-[90%] md:max-w-full lg:max-w-[150rem] flex-1 overflow-y-auto overflow-x-hidden md:px-6 lg:px-16 pb-12">
       <main className="flex flex-col pt-8 gap-y-8">
         <div className="flex flex-row items-center justify-between">
-          <span className="font-thin text-2xl md:text-4xl text-gray-700">
+          <Heading>
             {`${selectedCity?.name}, `} <span className="font-bold">{selectedCity?.sys.country}</span>
-          </span>
+          </Heading>
 
           <div className="flex items-center gap-x-8 md:gap-x-16">
             {types.map((item, index) => (

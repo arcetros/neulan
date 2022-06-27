@@ -38,7 +38,7 @@ interface CurrentDay {
   pop: number;
 }
 
-interface DailyForecast {
+export interface DailyForecast {
   dt: number;
   sunrise: number;
   sunset: number;
@@ -79,7 +79,7 @@ interface DailyForecast {
   uvi: number;
 }
 
-interface HourlyForecast {
+export interface HourlyForecast {
   dt: number;
   temp: number;
   feels_like: number;
