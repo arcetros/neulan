@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GeoModel, CurrentWeather, CityModel, CityArrayModel, Forecasts, SelectedCity } from '../types';
+import { CurrentWeather, CityModel, CityArrayModel, Forecasts, SelectedCity } from '../types';
 
 const initialWeatherState: CityArrayModel = {
   my_location: null as any,
@@ -9,15 +9,13 @@ const initialWeatherState: CityArrayModel = {
   current_weather: null as any,
   forecasts: null as any,
   isRequested: false,
+  message: '',
 };
 
 const weatherSlice = createSlice({
   name: 'weather',
   initialState: initialWeatherState,
   reducers: {
-    getGeo(state, action: PayloadAction<GeoModel>) {
-      state.my_location = action.payload;
-    },
     addWeather(state, action: PayloadAction<CurrentWeather>) {
       state.current_weather = action.payload;
     },
@@ -36,6 +34,9 @@ const weatherSlice = createSlice({
     },
     forecastReceived(state) {
       state.isRequested = false;
+    },
+    setMessage(state, action) {
+      state.message = action.payload;
     },
   },
 });

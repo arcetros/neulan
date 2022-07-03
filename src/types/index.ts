@@ -147,4 +147,5 @@ export interface CityArrayModel {
   selected_city: SelectedCity;
   isRequested: boolean;
   forecasts: Forecasts;
+  message: string;
 }
