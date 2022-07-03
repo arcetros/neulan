@@ -27,7 +27,7 @@ export default function RainChart() {
   const items = useSelector((state) => state.weather?.forecasts?.hourly);
   const timezone = useSelector((state) => state.weather?.forecasts?.timezone);
   return (
-    <div className="flex flex-col gap-y-6">
+    <div className="relative flex flex-col gap-y-6">
       <h1 className="text-white">Chance Of Rain</h1>
       <div className="w-full h-full">
         <div className=" flex justify-between mr-3 h-full">

@@ -33,9 +33,9 @@ export default function CurrentForecast() {
   };
 
   return (
-    <div className="order-first lg:order-last relative lg:sticky right-0 h-auto lg:h-screen w-full lg:w-[27rem] bg-primary overflow-y-hidden lg:overflow-y-auto">
+    <div className="order-first lg:order-last relative lg:sticky right-0 h-screen lg:h-auto w-full lg:w-[27rem] bg-primary overflow-y-hidden lg:overflow-y-auto">
       <div className="py-12 px-8 h-full">
-        <div className="relative flex flex-col gap-y-16 h-full">
+        <div className="relative flex flex-col justify-between h-full">
           <Header />
           <div className="w-full">
             <div className="flex flex-col gap-y-4">
@@ -91,7 +91,6 @@ export default function CurrentForecast() {
             </div>
           </div>
           <RainChart />
-          <div className="pb-1 hidden lg:block" />
         </div>
       </div>
     </div>
