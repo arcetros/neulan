@@ -43,7 +43,7 @@ export default function Header() {
   }, [debounce]);
 
   return (
-    <header className="z-30">
+    <header className="z-30 w-full md:w-2/3">
       <div className="flex flex-col gap-x-4">
         <div className="relative w-full">
           <FiSearch className="absolute top-1/2 transform -translate-y-1/2 left-3 w-5 h-auto text-gray-400" />
@@ -56,8 +56,8 @@ export default function Header() {
           <input
             type="text"
             onChange={handleChange}
-            placeholder="Search new place"
-            className={`w-full bg-[#1f114c] text-gray-200 px-0 lg:px-11 py-3 pl-10 outline-none placeholder:text-sm ${
+            placeholder="Search location here"
+            className={`w-full bg-gray-50 text-gray-600 px-0 lg:px-11 py-3 pl-10 outline-none placeholder:text-sm ${
               toggle ? 'rounded-t-xl' : 'rounded-xl'
             }`}
             value={value}
@@ -65,7 +65,7 @@ export default function Header() {
             onBlur={setToggle}
           />
           {toggle && (
-            <ul className="absolute bg-[#1f114c] w-full rounded-b-xl -mt-0.8">
+            <ul className="absolute bg-gray-50 w-full rounded-b-xl -mt-0.8">
               {items?.map((item, id) => (
                 <li
                   key={id}
@@ -75,7 +75,7 @@ export default function Header() {
                 >
                   <FaMapMarkerAlt className="text-gray-400  w-4 h-4" />
 
-                  <span className="text-gray-200 text-sm font-light">
+                  <span className="text-gray-600 text-sm font-light">
                     {item.name}
                     {item.state && `, ${item.state}`}
                     {item.country && `, ${item.country}`}
