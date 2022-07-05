@@ -3,7 +3,7 @@ import { FiSearch } from 'react-icons/fi';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { HiX } from 'react-icons/hi';
 import { useDispatch, useSelector } from '../store';
-import { fetchCity, fetchWeather, fetchForecast } from '../store/weather-actions';
+import { fetchCity, fetchForecast } from '../store/weather-actions';
 import useDebounce from '../hooks/useDebounce';
 import useToggle from '../hooks/useToggle';
 import { SelectedCity } from '../types';
@@ -30,7 +30,6 @@ export default function Header() {
   };
 
   const handleSelect = async (lat: number, lon: number, item: SelectedCity) => {
-    await dispatch(fetchWeather(lat, lon));
     await dispatch(fetchForecast(lat, lon));
     dispatch(weatherActions.selectCity(item));
     handleReset();

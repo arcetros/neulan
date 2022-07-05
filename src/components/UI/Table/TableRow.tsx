@@ -19,7 +19,7 @@ export default function TableRow({ children, onClick, isActive, disable, content
   }, [isActive]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-w-full">
       <div
         className="flex items-center justify-between h-24 border border-gray-1 hover:bg-gray-100 rounded-lg bg-slate-50"
         onClick={handleClick}

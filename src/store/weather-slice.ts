@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CurrentWeather, CityModel, CityArrayModel, Forecasts, SelectedCity } from '../types';
+import { CityModel, CityArrayModel, SelectedCity } from '../types';
 
 const initialWeatherState: CityArrayModel = {
   my_location: null as any,
@@ -16,17 +16,16 @@ const weatherSlice = createSlice({
   name: 'weather',
   initialState: initialWeatherState,
   reducers: {
-    addWeather(state, action: PayloadAction<CurrentWeather>) {
-      state.current_weather = action.payload;
-    },
     addCity(state, action: PayloadAction<CityModel[]>) {
       state.cities = action.payload;
     },
     selectCity(state, action: PayloadAction<SelectedCity>) {
       state.selected_city = action.payload;
     },
-    addForecast(state, action: PayloadAction<Forecasts>) {
-      state.forecasts = action.payload;
+    addForecast(state, action) {
+      state.forecasts = action.payload.oneCall;
+      state.current_weather = action.payload.daily;
+      state.message = action.payload.message;
     },
     forecastRequested(state) {
       state.forecasts = initialWeatherState.forecasts;

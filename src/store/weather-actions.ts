@@ -1,5 +1,7 @@
+import moment from 'moment';
 import { weatherActions } from './weather-slice';
 import { AppDispatch } from '.';
+import * as recommendations from '../components/recommendation.json';
 
 export const fetchCity = (city: string) => async (dispatch: AppDispatch) => {
   const sendRequest = async () => {
@@ -24,9 +26,20 @@ export const fetchCity = (city: string) => async (dispatch: AppDispatch) => {
   }
 };
 
-// call for current day only
-export const fetchWeather = (lat: number, lon: number) => async (dispatch: AppDispatch) => {
-  const sendRequest = async () => {
+export const fetchForecast = (lat: number, lon: number) => async (dispatch: AppDispatch) => {
+  dispatch(weatherActions.forecastRequested());
+  const getOnecall = async () => {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${process.env.REACT_APP_CITY_API}&units=metric`,
+    );
+    if (!response.ok) {
+      throw new Error('Response Failed');
+    }
+    const data = response.json();
+    return data;
+  };
+
+  const getDaily = async () => {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_CITY_API}&units=metric`,
     );
@@ -38,32 +51,21 @@ export const fetchWeather = (lat: number, lon: number) => async (dispatch: AppDi
   };
 
   try {
-    const forecastsData = await sendRequest();
-    dispatch(weatherActions.addWeather(forecastsData));
-    dispatch(weatherActions.forecastReceived());
-  } catch (err) {
-    weatherActions.setMessage(err);
-    dispatch(weatherActions.forecastReceived());
-  }
-};
+    const [oneCall, daily] = await Promise.all([getOnecall(), getDaily()]);
 
-// one call for 1 week forecasts
-export const fetchForecast = (lat: number, lon: number) => async (dispatch: AppDispatch) => {
-  dispatch(weatherActions.forecastRequested());
-  const sendRequest = async () => {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${process.env.REACT_APP_CITY_API}&units=metric`,
-    );
-    if (!response.ok) {
-      throw new Error('Response Failed');
+    const { sunset, sunrise } = daily.sys;
+
+    if (sunset || sunrise) {
+      const recomObject: { [key: string]: any } = recommendations;
+      const timeZone = daily.timezone / 60;
+      const currentTime = moment.unix(daily.dt).utc().add(timeZone, 's').format();
+      const sunsetTime = moment.unix(daily.sys.sunset).utc().add(timeZone, 's').format();
+      const sunriseTime = moment.unix(daily.sys.sunrise).utc().add(timeZone, 's').format();
+
+      const isDay = !!(currentTime > sunriseTime && currentTime < sunsetTime);
+      const message = recomObject[isDay ? 'day' : 'night'][daily.weather[0].id].recommendation;
+      dispatch(weatherActions.addForecast({ oneCall, daily, message }));
     }
-    const data = response.json();
-    return data;
-  };
-
-  try {
-    const forecastsData = await sendRequest();
-    dispatch(weatherActions.addForecast(forecastsData));
     dispatch(weatherActions.forecastReceived());
   } catch (err) {
     weatherActions.setMessage(err);
@@ -78,7 +80,6 @@ export const getGeo = () => async (dispatch: AppDispatch) => {
     timeout: 5000,
   };
   const dispatchAction = (lat: number, lon: number) => {
-    dispatch(fetchWeather(lat, lon));
     dispatch(fetchForecast(lat, lon));
   };
 

@@ -5,6 +5,8 @@ export interface CurrentWeather {
   name: string;
   sys: {
     country: string;
+    sunrise: number;
+    sunset: number;
   };
   dt: number;
   timezone: number;
