@@ -8,18 +8,37 @@ interface IIsActive {
 }
 
 function Chart({ percent, dateTime }: IIsActive) {
+  const currentForecast = useSelector((state) => state.weather?.forecasts);
+  const isLoading = useSelector((state) => state.weather?.isRequested);
   const time = moment.unix(dateTime.dt).format();
   const offset = dateTime?.offset;
   const currentTime = momenttz.tz(time, offset);
 
   return (
-    <div className="relative flex items-center gap-x-6">
-      <span className="z-30 font-light text-sm text-gray-200 w-16">{currentTime.format('h A')}</span>
+    <div className="relative flex justify-between items-center gap-x-6 h-full">
+      <span className="flex z-30 font-light text-sm text-gray-200 w-16 h-full">
+        {isLoading ? (
+          <div className="w-full my-auto h-2 bg-gray-500 bg-opacity-20 rounded-full animate-pulse" />
+        ) : (
+          <span>{currentTime.format('h A')}</span>
+        )}
+      </span>
       <div className="relative flex items-center w-full h-full">
-        <div className=" bg-[#8cb2fb] h-6 z-30 rounded-xl" style={{ width: percent && percent }} />
-        <div className="absolute left-0 top-0 bg-[#2a4263] rounded-xl z-0 w-full h-6" />
+        {!isLoading && currentForecast && (
+          <div className=" bg-[#8cb2fb] h-6 z-30 rounded-xl" style={{ width: percent && percent }} />
+        )}
+
+        <div
+          className={`absolute left-0 top-1 bg-[#2a4263] rounded-xl z-0 w-full h-6 ${isLoading && 'animate-pulse'}`}
+        />
       </div>
-      <span className="font-light text-sm text-gray-200">{percent}</span>
+      <span className="flex font-light text-sm text-gray-200 w-16 h-full">
+        {isLoading ? (
+          <div className="w-full my-auto h-2 bg-gray-500 bg-opacity-20 rounded-full animate-pulse" />
+        ) : (
+          percent
+        )}
+      </span>
     </div>
   );
 }
@@ -31,15 +50,23 @@ export default function RainChart() {
     <div className="relative flex flex-col gap-y-6">
       <h1 className="text-white">Chance Of Rain</h1>
       <div className="w-full h-full">
-        <div className="flex flex-col justify-between gap-y-4 h-44">
-          {items && (
-            <>
-              <Chart percent={`${items[0].pop * 100}%`} dateTime={{ dt: items[0].dt, offset: timezone }} />
-              <Chart percent={`${items[3].pop * 100}%`} dateTime={{ dt: items[3].dt, offset: timezone }} />
-              <Chart percent={`${items[6].pop * 100}%`} dateTime={{ dt: items[6].dt, offset: timezone }} />
-              <Chart percent={`${items[9].pop * 100}%`} dateTime={{ dt: items[9].dt, offset: timezone }} />
-            </>
-          )}
+        <div className="flex flex-col justify-between min-h-full gap-y-4 h-44">
+          <Chart
+            percent={`${items && Math.floor(items[0].pop * 100)}%`}
+            dateTime={{ dt: items && items[0].dt, offset: timezone && timezone }}
+          />
+          <Chart
+            percent={`${items && Math.floor(items[3].pop * 100)}%`}
+            dateTime={{ dt: items && items[3].dt, offset: timezone && timezone }}
+          />
+          <Chart
+            percent={`${items && Math.floor(items[6].pop * 100)}%`}
+            dateTime={{ dt: items && items[6].dt, offset: timezone && timezone }}
+          />
+          <Chart
+            percent={`${items && Math.floor(items[9].pop * 100)}%`}
+            dateTime={{ dt: items && items[9].dt, offset: timezone && timezone }}
+          />
         </div>
       </div>
     </div>

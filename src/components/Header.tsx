@@ -58,14 +58,14 @@ export default function Header() {
             onChange={handleChange}
             placeholder="Search location here"
             className={`w-full bg-gray-50 text-gray-600 px-0 lg:px-11 py-3 pl-10 outline-none placeholder:text-sm ${
-              toggle ? 'rounded-t-xl' : 'rounded-xl'
+              toggle ? 'rounded-t' : 'rounded'
             }`}
             value={value}
             onFocus={setToggle}
             onBlur={setToggle}
           />
           {toggle && (
-            <ul className="absolute bg-gray-50 w-full rounded-b-xl -mt-0.8">
+            <ul className="absolute bg-gray-50 w-full rounded-b -mt-0.8">
               {items?.map((item, id) => (
                 <li
                   key={id}
