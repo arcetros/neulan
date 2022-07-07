@@ -14,6 +14,7 @@ export default function CurrentForecast() {
   const currentWeather = useSelector((state) => state.weather?.current_weather);
   const currentForecast = useSelector((state) => state.weather?.forecasts);
   const dailyForecast = useSelector((state) => state.weather?.forecasts?.daily[0]);
+  const message = useSelector((state) => state.weather?.message);
   const isLoading = useSelector((state) => state.weather?.isRequested);
 
   const now = moment();
@@ -47,8 +48,8 @@ export default function CurrentForecast() {
   return (
     <div className="order-first lg:order-last relative lg:sticky right-0 h-full w-full lg:w-[25rem] bg-gradient-to-t from-[#0b2a63] via-[#0f2746] to-[#324968] overflow-y-hidden lg:overflow-y-auto">
       <div className="p-8 relative flex flex-col justify-between gap-y-10">
-        <div className="flex items-center justify-between">
-          <div className={`flex flex-col w-1/2 ${isLoading && 'gap-y-8'} `}>
+        <div className="flex items-center gap-x-4">
+          <div className={`flex flex-col w-[70%] ${isLoading && 'gap-y-8'} `}>
             <span className="text-xl md:text-2xl text-gray-200">
               {isLoading ? (
                 <div className="w-full my-auto h-4 bg-gray-500 bg-opacity-20 rounded-full animate-pulse" />
@@ -65,7 +66,7 @@ export default function CurrentForecast() {
               )}
             </span>
           </div>
-          <span className="text-lg md:text-xl text-gray-200 w-12">
+          <span className="text-right text-lg md:text-xl text-gray-200 w-[30%]">
             {isLoading ? (
               <div className="w-full my-auto h-2 bg-gray-500 bg-opacity-20 rounded-full animate-pulse" />
             ) : (
@@ -91,7 +92,7 @@ export default function CurrentForecast() {
               )}
             </div>
             <div className="flex flex-col gap-y-4 text-gray-200 font-light">
-              <div className="flex justify-between border-gray-500 border-b pb-8">
+              <div className="flex items-center justify-between border-gray-500 border-b pb-4">
                 {isLoading ? (
                   <div className="w-full flex justify-between">
                     <div className="w-1/2 my-auto h-12 bg-gray-500 bg-opacity-20 rounded-md animate-pulse" />
@@ -109,6 +110,7 @@ export default function CurrentForecast() {
                   )
                 )}
               </div>
+              {!isLoading && <span className="text-sm text-gray-300">{message}</span>}
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ function Chart({ percent, dateTime }: IIsActive) {
 
   return (
     <div className="relative flex justify-between items-center gap-x-6 h-full">
-      <span className="flex z-30 font-light text-sm text-gray-200 w-16 h-full">
+      <span className="flex z-30 font-light text-sm text-gray-200 w-16 h-full whitespace-pre">
         {isLoading ? (
           <div className="w-full my-auto h-2 bg-gray-500 bg-opacity-20 rounded-full animate-pulse" />
         ) : (
