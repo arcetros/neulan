@@ -16,7 +16,9 @@ export default function CurrentForecast() {
   const dailyForecast = useSelector((state) => state.weather?.forecasts?.daily[0]);
   const message = useSelector((state) => state.weather?.message);
   const isLoading = useSelector((state) => state.weather?.isRequested);
+  const unit = useSelector((state) => state.weather?.units);
 
+  const isMetric = unit.match(/metric/i);
   const now = moment();
   const offset = currentForecast?.timezone;
   const currentDate = momenttz.tz(now, offset);
@@ -103,7 +105,7 @@ export default function CurrentForecast() {
                     <>
                       <div>
                         <span className="font-thin tracking-wide text-5xl">{currentWeather?.main.temp.toFixed(0)}</span>
-                        <span className="font-thin tracking-tighter text-5xl">°C</span>
+                        <span className="font-thin tracking-tighter text-5xl">{isMetric ? '°C' : '°F'}</span>
                       </div>
                       <span className="capitalize w-28 text-right">{currentWeather?.weather[0].description}</span>
                     </>

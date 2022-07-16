@@ -1,29 +1,41 @@
 /* eslint-disable no-unsafe-optional-chaining */
+import { useEffect } from 'react';
 import moment from 'moment';
 import momenttz from 'moment-timezone';
-import { BiLinkExternal } from 'react-icons/bi';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { BsWind, BsCloudRain, BsSpeedometer2, BsFillSunFill } from 'react-icons/bs';
+import { CgArrowsExchange } from 'react-icons/cg';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import getLocalTime from '../helpers/getLocalTime';
-import { useSelector } from '../store';
+import { useSelector, useDispatch } from '../store';
 import Card from './Overview/Card';
-// import Tab from './UI/Table/Tab';
-// import Hourly from './Hourly';
-// import Weekly from './Weekly';
 import Header from './Header';
-
-// const types = ['Hourly', 'Weekly']; // Weather Types
+import { weatherActions } from '../store/weather-slice';
+import { fetchForecast, getGeo } from '../store/weather-actions';
 
 export default function Overview() {
-  // const [active, setActive] = useState(types[0]);
-  // const items = useSelector((state) => state.weather.forecasts);
+  const dispatch = useDispatch();
   const currentForecast = useSelector((state) => state.weather?.forecasts);
+  const currLocation = useSelector((state) => state.weather?.selected_city);
+  const unit = useSelector((state) => state.weather?.units);
   const isLoading = useSelector((state) => state.weather?.isRequested);
+  const isMetric = unit.match(/metric/i);
 
   const now = moment();
   const offset = currentForecast?.timezone;
   const currentDate = momenttz.tz(now, offset);
+
+  const handleUnits = () => {
+    if (isMetric) return dispatch(weatherActions.changeUnits('imperial'));
+    return dispatch(weatherActions.changeUnits('metric'));
+  };
+
+  useEffect(() => {
+    if (currLocation) dispatch(fetchForecast(currLocation?.lat, currLocation?.lon, unit));
+    else {
+      dispatch(getGeo(unit));
+    }
+  }, [unit]);
 
   // this is for overview stats
   const windSpeed = currentForecast?.current.wind_speed - currentForecast?.hourly[0].wind_speed;
@@ -80,22 +92,19 @@ export default function Overview() {
             )}
           </div>
           <Header />
-
-          {/* <div className="flex items-center gap-x-8 md:gap-x-16">
-            {types.map((item, index) => (
-              <Tab key={index} active={active === item} onClick={() => setActive(item)}>
-                {item}
-              </Tab>
-            ))}
-          </div> */}
         </div>
         <div className="w-full px-8 lg:px-16">
-          <div className="flex items-center justify-between">
+          <div className="flex justify-between items-center">
             <h1 className="text-base md:text-lg text-gray-600 font-bold">Today Overview</h1>
-
-            <div className="flex gap-x-2 items-center text-blue-500">
-              <span>More detail</span>
-              <BiLinkExternal />
+            <div
+              className="cursor-pointer flex items-center gap-x-2 text-gray-600 text-sm"
+              onClick={handleUnits}
+              aria-hidden
+            >
+              <span>Change Units</span>
+              <span className="flex">
+                {isMetric ? '°C' : '°F'} <CgArrowsExchange className="w-5 h-5" /> {!isMetric ? '°C' : '°F'}
+              </span>
             </div>
           </div>
           <div className="my-5" />
@@ -104,7 +113,10 @@ export default function Overview() {
               <BsWind className="text-blue-500 w-7 h-7" />
               <div className="mr-auto ml-4 flex flex-col justify-center h-full">
                 <span className="text-sm text-gray-600 font-light">Wind Speed</span>
-                <span className="text-xl text-gray-800">{currentForecast?.current.wind_speed.toFixed(2)}km/h</span>
+                <span className="text-xl text-gray-800">
+                  {currentForecast?.current.wind_speed.toFixed(2)}
+                  {isMetric ? 'km/h' : 'mph'}
+                </span>
               </div>
               <div className="flex items-center gap-x-1">
                 <IoMdArrowDropdown
@@ -116,7 +128,7 @@ export default function Overview() {
                 />
                 <span className="text-gray-600 font-light text-sm">
                   {currentForecast && Math.abs(windSpeed).toFixed(2)}
-                  km/h
+                  {isMetric ? 'km/h' : 'mph'}
                 </span>
               </div>
             </Card>

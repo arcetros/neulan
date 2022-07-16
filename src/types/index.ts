@@ -150,4 +150,5 @@ export interface CityArrayModel {
   isRequested: boolean;
   forecasts: Forecasts;
   message: string;
+  units: string;
 }

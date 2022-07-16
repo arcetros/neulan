@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CityModel, CityArrayModel, SelectedCity } from '../types';
 
-const initialWeatherState: CityArrayModel = {
+export const initialWeatherState: CityArrayModel = {
   my_location: null as any,
   cities: [],
   selected_city: null as any,
@@ -10,6 +10,7 @@ const initialWeatherState: CityArrayModel = {
   forecasts: null as any,
   isRequested: false,
   message: '',
+  units: 'imperial',
 };
 
 const weatherSlice = createSlice({
@@ -36,6 +37,9 @@ const weatherSlice = createSlice({
     },
     setMessage(state, action) {
       state.message = action.payload;
+    },
+    changeUnits(state, action) {
+      state.units = action.payload;
     },
   },
 });

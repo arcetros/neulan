@@ -26,11 +26,11 @@ export const fetchCity = (city: string) => async (dispatch: AppDispatch) => {
   }
 };
 
-export const fetchForecast = (lat: number, lon: number) => async (dispatch: AppDispatch) => {
+export const fetchForecast = (lat: number, lon: number, units: string) => async (dispatch: AppDispatch) => {
   dispatch(weatherActions.forecastRequested());
   const getOnecall = async () => {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${process.env.REACT_APP_CITY_API}&units=metric`,
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${process.env.REACT_APP_CITY_API}&units=${units}`,
     );
     if (!response.ok) {
       throw new Error('Response Failed');
@@ -41,7 +41,7 @@ export const fetchForecast = (lat: number, lon: number) => async (dispatch: AppD
 
   const getDaily = async () => {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_CITY_API}&units=metric`,
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_CITY_API}&units=${units}`,
     );
     if (!response.ok) {
       throw new Error('Response Failed');
@@ -73,14 +73,14 @@ export const fetchForecast = (lat: number, lon: number) => async (dispatch: AppD
   }
 };
 
-export const getGeo = () => async (dispatch: AppDispatch) => {
+export const getGeo = (units: string) => async (dispatch: AppDispatch) => {
   const geolocationAPI = navigator.geolocation;
   const geolocationOption = {
     enableHighAccuracy: true,
     timeout: 5000,
   };
   const dispatchAction = (lat: number, lon: number) => {
-    dispatch(fetchForecast(lat, lon));
+    dispatch(fetchForecast(lat, lon, units));
   };
 
   const getUserCoords = () => {
@@ -101,7 +101,7 @@ export const getGeo = () => async (dispatch: AppDispatch) => {
         };
         try {
           const responseData = await getByBrowserIp();
-          dispatchAction(responseData.latitude, responseData.longitude);
+          dispatch(fetchForecast(responseData.latitude, responseData.longitude, units));
         } catch (err) {
           dispatch(weatherActions.setMessage(err));
         }

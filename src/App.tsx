@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { getGeo } from './store/weather-actions';
-import { useDispatch } from './store';
+import { useDispatch, store } from './store';
 import Overview from './components/Overview';
 import CurrentForecast from './components/CurrentForecast';
 
@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     if (firstRender) {
-      dispatch(getGeo());
+      dispatch(getGeo(store.getState().weather.units));
       firstRender = false;
     }
   }, []);
