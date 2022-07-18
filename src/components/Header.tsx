@@ -6,8 +6,6 @@ import { useDispatch, useSelector, store } from '../store';
 import { fetchCity, fetchForecast } from '../store/weather-actions';
 import useDebounce from '../hooks/useDebounce';
 import useToggle from '../hooks/useToggle';
-// import { SelectedCity } from '../types';
-// import { weatherActions } from '../store/weather-slice';
 
 export default function Header() {
   const dispatch = useDispatch();

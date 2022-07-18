@@ -6,14 +6,17 @@ import { IoMdArrowDropdown } from 'react-icons/io';
 import { BsWind, BsCloudRain, BsSpeedometer2, BsFillSunFill } from 'react-icons/bs';
 import { CgArrowsExchange } from 'react-icons/cg';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import Weekly from './Weekly';
 import getLocalTime from '../helpers/getLocalTime';
 import { useSelector, useDispatch } from '../store';
 import Card from './Overview/Card';
 import Header from './Header';
 import { weatherActions } from '../store/weather-slice';
 import { fetchForecast } from '../store/weather-actions';
+import useMobile from '../hooks/useMobile';
 
 export default function Overview() {
+  const { isMobile } = useMobile();
   const dispatch = useDispatch();
   const currentForecast = useSelector((state) => state.weather?.forecasts);
   const unit = useSelector((state) => state.weather?.units);
@@ -71,8 +74,8 @@ export default function Overview() {
   ];
 
   return (
-    <div className="relative flex-1 flex flex-col mx-auto w-full md:w-full lg:max-w-[120rem] overflow-y-auto overflow-x-hidden pb-12">
-      <main className="flex flex-col pt-8 gap-y-8">
+    <div className="relative flex flex-col mx-auto w-full md:w-full lg:max-w-[120rem] overflow-x-hidden flex-1">
+      <main className="flex flex-col py-8 gap-y-8">
         <div className="w-full px-8 lg:px-16 pb-8 gap-y-4 gap-x-4 flex flex-col md:flex-row items-start md:items-center justify-between border-b border-gray">
           <div className="w-1/3">
             {isLoading ? (
@@ -89,7 +92,7 @@ export default function Overview() {
           </div>
           <Header />
         </div>
-        <div className="w-full px-8 lg:px-16">
+        <div className="h-full px-8 lg:px-16">
           <div className="flex justify-between items-center">
             <h1 className="text-base md:text-lg text-gray-600 font-bold">Today Overview</h1>
             <div
@@ -181,16 +184,16 @@ export default function Overview() {
             </Card>
           </div>
           <div className="my-8" />
-          <div className="max-h-screen w-full">
-            <h1 className="text-base md:text-lg text-gray-600 font-bold mb-4">Average Daily Temperature</h1>
-            <ResponsiveContainer width="100%" height={350}>
+          <h1 className="text-base md:text-lg text-gray-600 font-bold mb-4">Average Daily Temperature</h1>
+          <div className="flex flex-col lg:flex-row w-full">
+            <ResponsiveContainer width={isMobile ? '100%' : '50%'} height={500} className="min-w-[50%]">
               <AreaChart
                 data={data}
                 margin={{
                   top: 30,
                   right: 30,
                   left: 0,
-                  bottom: 0,
+                  bottom: -10,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
@@ -204,9 +207,10 @@ export default function Overview() {
                   allowDataOverflow
                 />
                 <Tooltip />
-                <Area type="monotone" dataKey="temperature" stroke="#8884d8" fill="#8884d8" />
+                <Area type="monotone" dataKey="temperature" stroke="#8884d8" fillOpacity={1} fill="#8884d8" />
               </AreaChart>
             </ResponsiveContainer>
+            <Weekly items={currentForecast} />
           </div>
         </div>
         {/* <Hourly items={items} active={active} />

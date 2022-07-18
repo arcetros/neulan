@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, memo, useMemo } from 'react';
+import { useState, useCallback, memo, useMemo } from 'react';
 import { IoMdWater } from './UI/Icons';
 import { Forecasts } from '../types';
 import useMobile from '../hooks/useMobile';
@@ -9,22 +9,17 @@ import HourlyContent from './extras/HourlyContent';
 import getLocalTime from '../helpers/getLocalTime';
 
 interface IHourly {
-  active: string;
   items: Forecasts;
 }
-function Hourly({ active, items }: IHourly) {
+function Hourly({ items }: IHourly) {
   const { isMobile } = useMobile();
   const [activeIndex, setActiveIndex] = useState(null as any);
 
   const handleActive = useCallback((id: number) => setActiveIndex(id), []);
   const memoizedItems = useMemo(() => items?.hourly.slice(0, 13), [items]);
 
-  useEffect(() => {
-    setActiveIndex(null);
-  }, [active]);
-
   return (
-    <Table active={active === 'Hourly'}>
+    <Table>
       {memoizedItems?.map((item, id) => {
         const isActive = id === activeIndex;
         return (

@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  WiSunrise,
-  BsSunFill,
-  BsSunset,
-  BsFillMoonFill,
-  GiSunRadiations,
-  BsDroplet,
-  IoMdSpeedometer,
-} from '../UI/Icons';
+import { WiSunrise, BsSunFill, BsSunset, BsFillMoonFill } from '../UI/Icons';
 import { DailyForecast } from '../../types';
 
 interface IWeeklyContent {
@@ -43,20 +35,6 @@ export default function WeeklyContent({ item }: IWeeklyContent) {
             <BsFillMoonFill className="mx-auto w-6 h-6 text-gray-700" />
             <span className="mx-auto">{item.temp.night.toFixed(0)}°</span>
           </div>
-        </div>
-      </div>
-      <div className="flex flex-row justify-around md:flex-col mt-3 gap-y-0.5 text-xs w-full md:w-auto">
-        <div className="flex gap-1 items-center">
-          <GiSunRadiations />
-          <span className="">UVI {item.uvi.toFixed(0)}</span>
-        </div>
-        <div className="flex gap-1 items-center">
-          <BsDroplet />
-          <span>Humidity {item.humidity}%</span>
-        </div>
-        <div className="flex gap-1 items-center">
-          <IoMdSpeedometer />
-          <span>{item.pressure}hpa</span>
         </div>
       </div>
     </div>
