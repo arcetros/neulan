@@ -11,12 +11,11 @@ import { useSelector, useDispatch } from '../store';
 import Card from './Overview/Card';
 import Header from './Header';
 import { weatherActions } from '../store/weather-slice';
-import { fetchForecast, getGeo } from '../store/weather-actions';
+import { fetchForecast } from '../store/weather-actions';
 
 export default function Overview() {
   const dispatch = useDispatch();
   const currentForecast = useSelector((state) => state.weather?.forecasts);
-  const currLocation = useSelector((state) => state.weather?.selected_city);
   const unit = useSelector((state) => state.weather?.units);
   const isLoading = useSelector((state) => state.weather?.isRequested);
   const isMetric = unit.match(/metric/i);
@@ -31,10 +30,7 @@ export default function Overview() {
   };
 
   useEffect(() => {
-    if (currLocation) dispatch(fetchForecast(currLocation?.lat, currLocation?.lon, unit));
-    else {
-      dispatch(getGeo(unit));
-    }
+    if (currentForecast) dispatch(fetchForecast(currentForecast?.lat, currentForecast?.lon, unit));
   }, [unit]);
 
   // this is for overview stats

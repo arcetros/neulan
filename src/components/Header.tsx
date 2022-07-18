@@ -6,8 +6,8 @@ import { useDispatch, useSelector, store } from '../store';
 import { fetchCity, fetchForecast } from '../store/weather-actions';
 import useDebounce from '../hooks/useDebounce';
 import useToggle from '../hooks/useToggle';
-import { SelectedCity } from '../types';
-import { weatherActions } from '../store/weather-slice';
+// import { SelectedCity } from '../types';
+// import { weatherActions } from '../store/weather-slice';
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -29,9 +29,8 @@ export default function Header() {
     setValue('');
   };
 
-  const handleSelect = async (lat: number, lon: number, item: SelectedCity) => {
+  const handleSelect = async (lat: number, lon: number) => {
     await dispatch(fetchForecast(lat, lon, store.getState().weather.units));
-    dispatch(weatherActions.selectCity(item));
     handleReset();
   };
 
@@ -70,7 +69,7 @@ export default function Header() {
                 <li
                   key={id}
                   className="flex items-center gap-x-4 px-3 py-1.5 relative cursor-pointer "
-                  onMouseDown={() => handleSelect(item.lat, item.lon, item)}
+                  onMouseDown={() => handleSelect(item.lat, item.lon)}
                   aria-hidden
                 >
                   <FaMapMarkerAlt className="text-gray-400  w-4 h-4" />

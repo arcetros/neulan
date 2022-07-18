@@ -146,7 +146,6 @@ export interface CityArrayModel {
   my_location: GeoModel;
   current_weather: CurrentWeather;
   cities: CityModel[];
-  selected_city: SelectedCity;
   isRequested: boolean;
   forecasts: Forecasts;
   message: string;
