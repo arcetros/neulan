@@ -11,6 +11,7 @@ import TableCell from './UI/Table/TableCell';
 import WeeklyContent from './extras/WeeklyContent';
 import getLocalTime from '../helpers/getLocalTime';
 import getTempPercent from '../helpers';
+import { useSelector } from '../store';
 
 interface IHourly {
   items: Forecasts;
@@ -18,12 +19,12 @@ interface IHourly {
 
 function Hourly({ items }: IHourly) {
   const [activeIndex, setActiveIndex] = useState(null as any);
-  // const { isMobile } = useMobile();
+  const unit = useSelector((state) => state.weather?.units);
 
   const memoizedItems = useMemo(
     () =>
       items?.daily.map((item, id) => {
-        const temps = getTempPercent(item.temp.min, item.temp.max);
+        const temps = getTempPercent(item.temp.min, item.temp.max, unit);
         const isActive = id === activeIndex;
         return (
           <TableRow
