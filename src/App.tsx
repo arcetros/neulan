@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { getGeo } from './store/weather-actions';
-import { useDispatch, store } from './store';
+import { useDispatch, useSelector, store } from './store';
 import Overview from './components/Overview';
 import CurrentForecast from './components/CurrentForecast';
 
 function App() {
+  const townName = useSelector((state) => state?.weather?.current_weather?.name);
   const dispatch = useDispatch();
 
   let firstRender = true;
@@ -15,6 +16,18 @@ function App() {
       firstRender = false;
     }
   }, []);
+
+  useEffect(() => {
+    const prevTitle = document.title;
+    if (!townName) {
+      document.title = `${prevTitle} — Loading`;
+    } else {
+      document.title = `${prevTitle} — ${townName}`;
+    }
+    return () => {
+      document.title = prevTitle;
+    };
+  }, [townName]);
 
   return (
     <div className="flex flex-col lg:flex-row justify-between h-auto lg:h-screen overflow-x-hidden lg:overflow-hidden bg-white">
