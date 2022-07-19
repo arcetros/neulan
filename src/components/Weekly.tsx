@@ -3,14 +3,13 @@ import moment from 'moment';
 
 import { Forecasts } from '../types';
 import { BiDownArrow, BiUpArrow } from './UI/Icons';
-// import useMobile from '../hooks/useMobile';
 import XChart from './UI/Chart/XChart';
 import Table from './UI/Table/Table';
 import TableRow from './UI/Table/TableRow';
 import TableCell from './UI/Table/TableCell';
 import WeeklyContent from './extras/WeeklyContent';
 import getLocalTime from '../helpers/getLocalTime';
-import getTempPercent from '../helpers';
+import getTempPercent from '../helpers/getTempPercent';
 import { useSelector } from '../store';
 
 interface IHourly {
