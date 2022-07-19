@@ -7,7 +7,7 @@ import { Forecasts } from '../../types';
 interface IType {
   data: Forecasts;
   calculatedData: number;
-  isMetric?: boolean;
+  isMetric?: RegExpMatchArray | null;
 }
 
 export function WindSpeed({ data, isMetric, calculatedData }: IType) {
@@ -18,7 +18,7 @@ export function WindSpeed({ data, isMetric, calculatedData }: IType) {
         <span className="text-sm text-gray-600 font-light">Wind Speed</span>
         <span className="text-xl text-gray-800">
           {data?.current.wind_speed.toFixed(2)}
-          {isMetric ? 'km/h' : 'mph'}
+          {isMetric ? 'm/s' : 'mph'}
         </span>
       </div>
       <div className="flex items-center gap-x-1">

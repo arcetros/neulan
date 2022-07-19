@@ -68,7 +68,7 @@ export default function Overview() {
         </div>
         <div className="my-5" />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <Card type="WindSpeed" data={forecasts} calculatedData={windSpeed} />
+          <Card type="WindSpeed" data={forecasts} calculatedData={windSpeed} isMetric={isMetric} />
           <Card type="RainChance" data={forecasts} calculatedData={rainChance} />
           <Card type="Preassure" data={forecasts} calculatedData={pressure} />
           <Card type="UV" data={forecasts} calculatedData={uv} />

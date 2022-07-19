@@ -7,7 +7,7 @@ interface ICard {
   type: keyof typeof types;
   data: Forecasts;
   calculatedData: number;
-  isMetric?: boolean;
+  isMetric?: RegExpMatchArray | null;
 }
 
 export default function Card({ type, data, calculatedData, isMetric }: ICard) {
