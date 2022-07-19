@@ -1,6 +1,6 @@
 import moment from 'moment';
 import momenttz from 'moment-timezone';
-import Loader from '../components/CurrentForecast-extra/Loader';
+import Loader from '../components/UI/Loader/Loader';
 
 const getStatus = (status: number, time: string, isLoading: boolean, offset: string) => {
   if (status && time === 'when') {

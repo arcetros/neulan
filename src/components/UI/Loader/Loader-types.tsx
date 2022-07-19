@@ -10,6 +10,15 @@ export function Date() {
   return <div className="w-full my-auto h-2 bg-gray-500 bg-opacity-20 rounded-full animate-pulse" />;
 }
 
+export function MainDate() {
+  return (
+    <div className="flex flex-col gap-y-4">
+      <div className="w-1/3 my-auto h-6 bg-gray-500 bg-opacity-20 rounded-full animate-pulse" />
+      <div className="w-2/3 my-auto h-4 bg-gray-500 bg-opacity-20 rounded-full animate-pulse" />
+    </div>
+  );
+}
+
 export function Icon() {
   return <div className="w-1/2 my-auto h-16 bg-gray-500 bg-opacity-20 rounded-md animate-pulse" />;
 }

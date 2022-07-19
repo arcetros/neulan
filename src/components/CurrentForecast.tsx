@@ -6,7 +6,7 @@ import { CurrentForecastLayout } from './Layouts';
 import useMobile from '../hooks/useMobile';
 import { useSelector } from '../store';
 import RainChart from './RainChart';
-import Loader from './CurrentForecast-extra/Loader';
+import Loader from './UI/Loader/Loader';
 import Sun from './CurrentForecast-extra/Sun';
 import getStatus from '../helpers/getSunStatus';
 
