@@ -16,7 +16,7 @@ export function WindSpeed({ data, isMetric, calculatedData }: IType) {
       <BsWind className="text-blue-500 w-7 h-7" />
       <div className="mr-auto ml-4 flex flex-col justify-center h-full">
         <span className="text-sm text-gray-600 font-light">Wind Speed</span>
-        <span className="text-xl text-gray-800">
+        <span className="text-2xl text-gray-800">
           {data?.current.wind_speed.toFixed(2)}
           {isMetric ? 'm/s' : 'mph'}
         </span>
@@ -42,7 +42,7 @@ export function RainChance({ data, calculatedData }: IType) {
       <BsCloudRain className="text-blue-500 w-7 h-7" />
       <div className="mr-auto ml-4 flex flex-col justify-center h-full">
         <span className="text-sm text-gray-600 font-light">Rain Chance</span>
-        <span className="text-xl text-gray-800">{data?.hourly[0].pop * 100}%</span>
+        <span className="text-2xl text-gray-800">{data?.hourly[0].pop * 100}%</span>
       </div>
       <div className="flex items-center gap-x-1">
         <IoMdArrowDropdown
@@ -62,7 +62,7 @@ export function Preassure({ data, calculatedData }: IType) {
       <BsSpeedometer2 className="text-blue-500 w-7 h-7" />
       <div className="mr-auto ml-4 flex flex-col justify-center h-full">
         <span className="text-sm text-gray-600 font-light">Preassure</span>
-        <span className="text-xl text-gray-800">{data?.hourly[0].pressure} hpa</span>
+        <span className="text-2xl text-gray-800">{data?.hourly[0].pressure} hpa</span>
       </div>
       <div className="flex items-center gap-x-1">
         <IoMdArrowDropdown
@@ -82,7 +82,7 @@ export function UV({ data, calculatedData }: IType) {
       <BsFillSunFill className="text-blue-500 w-7 h-7" />
       <div className="mr-auto ml-4 flex flex-col justify-center h-full">
         <span className="text-sm text-gray-600 font-light">UV Index</span>
-        <span className="text-xl text-gray-800">{data?.hourly[0].uvi}</span>
+        <span className="text-2xl text-gray-800">{data?.hourly[0].uvi}</span>
       </div>
       <div className="flex items-center gap-x-1">
         <IoMdArrowDropdown
