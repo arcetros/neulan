@@ -13,7 +13,7 @@ import getStatus from '../helpers/getSunStatus';
 export default function CurrentForecast() {
   const isMobile = useMobile();
   const {
-    message,
+    // message,
     isRequested,
     units,
     current_weather: currentWeather,
@@ -78,7 +78,7 @@ export default function CurrentForecast() {
                   )
                 )}
               </div>
-              {!isRequested && <span className="text-sm text-gray-300">{message}</span>}
+              {/* {!isRequested && <span className="text-sm text-gray-300">{message}</span>} */}
             </div>
           </div>
         </div>

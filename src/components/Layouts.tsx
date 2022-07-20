@@ -15,7 +15,7 @@ export function CurrentForecastLayout({ children }: ILayout) {
 export function OverviewLayout({ children }: ILayout) {
   return (
     <div className="relative flex flex-col mx-auto w-full md:w-full lg:max-w-[120rem] overflow-x-hidden flex-1">
-      <main className="flex flex-col py-8 gap-y-8">{children}</main>
+      <main className="flex flex-col gap-y-8">{children}</main>
     </div>
   );
 }

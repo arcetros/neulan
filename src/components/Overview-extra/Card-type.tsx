@@ -29,7 +29,7 @@ export function WindSpeed({ data, isMetric, calculatedData }: IType) {
         />
         <span className="text-gray-600 font-light text-sm">
           {data && Math.abs(calculatedData).toFixed(2)}
-          {isMetric ? 'km/h' : 'mph'}
+          {isMetric ? 'm/s' : 'mph'}
         </span>
       </div>
     </>

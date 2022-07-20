@@ -30,7 +30,7 @@ function App() {
   }, [townName]);
 
   return (
-    <div className="flex flex-col lg:flex-row justify-between h-auto lg:h-screen overflow-x-hidden lg:overflow-hidden bg-white">
+    <div className="flex flex-col lg:flex-row justify-between h-auto lg:h-screen overflow-x-hidden lg:overflow-hidden bg-gray-50">
       <Overview />
       <CurrentForecast />
     </div>

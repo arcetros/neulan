@@ -2,10 +2,8 @@
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useSelector } from '../../../store';
 import getLocalTime from '../../../helpers/getLocalTime';
-import useMobile from '../../../hooks/useMobile';
 
 function WeeklyChart() {
-  const { isMobile } = useMobile();
   const { forecasts: currentForecast, isRequested: isLoading } = useSelector((state) => state.weather);
 
   const data = [
@@ -39,25 +37,32 @@ function WeeklyChart() {
     },
   ];
   return (
-    <ResponsiveContainer width={isMobile ? '100%' : '50%'} height={500} className="min-w-[50%]">
+    <ResponsiveContainer width="100%" height={400} className="mx-8 w-full">
       <AreaChart
         data={data}
         margin={{
-          top: 30,
-          right: 30,
-          left: 0,
-          bottom: -10,
+          top: 10,
+          right: 20,
+          left: -20,
+          bottom: 0,
         }}
       >
+        <defs>
+          <linearGradient id="temperature" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+          </linearGradient>
+        </defs>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis
+          orientation="right"
           type="number"
           domain={[(dataMin: number) => Math.floor(dataMin - 0.9), (dataMax: number) => Math.floor(dataMax * 1.04)]}
           allowDataOverflow
         />
         <Tooltip />
-        <Area type="monotone" dataKey="temperature" stroke="#8884d8" fillOpacity={1} fill="#8884d8" />
+        <Area type="monotone" dataKey="temperature" stroke="#8884d8" fillOpacity={1} fill="url(#temperature)" />
       </AreaChart>
     </ResponsiveContainer>
   );
