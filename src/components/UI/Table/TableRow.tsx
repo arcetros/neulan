@@ -21,7 +21,7 @@ export default function TableRow({ children, onClick, isActive, disable, content
   return (
     <div className="flex flex-col justify-between min-w-full h-full">
       <div
-        className="flex items-center h-12 border border-gray-1 hover:bg-gray-100 rounded-lg"
+        className="flex items-center h-12 border border-gray-1 hover:bg-gray-50 rounded-lg cursor-pointer"
         onClick={handleClick}
         aria-hidden
       >
@@ -33,7 +33,7 @@ export default function TableRow({ children, onClick, isActive, disable, content
         className="overflow-hidden transition-max-height duration-700 ease-in-out"
         aria-hidden
       >
-        <div className="bg-slate-50 py-5 px-4">{content}</div>
+        <div className="py-5 px-4">{content}</div>
       </div>
     </div>
   );

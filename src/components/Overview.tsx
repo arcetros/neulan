@@ -9,7 +9,7 @@ import Header from './Header';
 import Card from './Overview-extra/Card';
 import Loader from './UI/Loader/Loader';
 import WeeklyChart from './UI/Chart/WeeklyChart';
-// import Weekly from './Weekly';
+import DetailedInfo from './Overview-extra/DetailedInfo';
 import { useSelector, useDispatch } from '../store';
 import { weatherActions } from '../store/weather-slice';
 import { fetchForecast } from '../store/weather-actions';
@@ -82,10 +82,11 @@ export default function Overview() {
             <Card type="UV" data={forecasts} calculatedData={uv} />
           </div>
         </div>
+
         <div className="my-8" />
 
         <div className="flex flex-col w-full bg-white rounded-xl shadow-md py-8">
-          <div className="mb-8 border-b-2 border-gray-300 w-full">
+          <div className="mb-4 border-b-2 border-gray-300 w-full">
             <div className="flex flex-col md:flex-row mx-8 pb-8 justify-between items-start">
               <div className="mb-8 lg:mb-0">
                 <h1 className="text-base md:text-lg text-gray-600 font-bold ">Average Weekly Overview</h1>
@@ -96,8 +97,13 @@ export default function Overview() {
               </div>
               <ul className="relative flex w-full md:w-1/3 mt-auto">
                 {tabTypes.map((item, i) => (
-                  <li key={i} className="relative flex-1 text-center" onClick={() => setActiveTab(item)} aria-hidden>
-                    Chart
+                  <li
+                    key={i}
+                    className="relative flex-1 text-center cursor-pointer"
+                    onClick={() => setActiveTab(item)}
+                    aria-hidden
+                  >
+                    {item}
                     {activeTab === item && <div className="w-full h-1 absolute -bottom-8 md:-bottom-9 bg-blue-500" />}
                   </li>
                 ))}
@@ -105,7 +111,7 @@ export default function Overview() {
             </div>
           </div>
           {activeTab === 'Chart' && <WeeklyChart />}
-          {activeTab === 'Detailed Info' && 'This is 2'}
+          {activeTab === 'Detailed Info' && <DetailedInfo />}
         </div>
       </div>
     </OverviewLayout>

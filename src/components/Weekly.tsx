@@ -7,6 +7,7 @@ import XChart from './UI/Chart/XChart';
 import Table from './UI/Table/Table';
 import TableRow from './UI/Table/TableRow';
 import TableCell from './UI/Table/TableCell';
+import useMobile from '../hooks/useMobile';
 import WeeklyContent from './extras/WeeklyContent';
 import getLocalTime from '../helpers/getLocalTime';
 import getTempPercent from '../helpers/getTempPercent';
@@ -17,6 +18,7 @@ interface IHourly {
 }
 
 function Hourly({ items }: IHourly) {
+  const { isMobile } = useMobile();
   const [activeIndex, setActiveIndex] = useState(null as any);
   const unit = useSelector((state) => state.weather?.units);
 
@@ -34,14 +36,25 @@ function Hourly({ items }: IHourly) {
             disable={setActiveIndex}
           >
             <TableCell className="flex items-center">
-              <div className="flex items-center w-24">
+              <div className="flex justify-between items-center w-24">
                 <span className="text-sm md:text-base text-gray-800">
                   {id === 0 ? 'Today' : moment.unix(item.dt).format('ddd')}
                 </span>
                 <span className="text-xs ml-2">{getLocalTime(item.dt, items?.timezone).format('M/D')}</span>
               </div>
             </TableCell>
-            <TableCell className="flex-1 w-full">
+            {!isMobile && (
+              <TableCell>
+                <img
+                  src={`http://openweathermap.org/img/wn/${item.weather.map((el) => el.icon)}${
+                    isMobile ? '' : '@2x'
+                  }.png`}
+                  alt="Weather Icon"
+                  className="relative"
+                />
+              </TableCell>
+            )}
+            <TableCell className="w-full">
               <div className="flex justify-between items-center gap-x-4">
                 <span className="flex gap-x-1 text-gray-500">
                   <span className="flex items-center md:hidden">
