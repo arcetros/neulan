@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-unsafe-optional-chaining */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
 import momenttz from 'moment-timezone';
 import { CgArrowsExchange } from 'react-icons/cg';
@@ -14,9 +15,12 @@ import { weatherActions } from '../store/weather-slice';
 import { fetchForecast } from '../store/weather-actions';
 import getLocalTime from '../helpers/getLocalTime';
 
+const tabTypes = ['Chart', 'Detailed Info'];
+
 export default function Overview() {
   const dispatch = useDispatch();
   const { units, isRequested, forecasts, message } = useSelector((state) => state.weather);
+  const [activeTab, setActiveTab] = useState(tabTypes[0]);
   const isMetric = units.match(/metric/i);
 
   const now = moment();
@@ -91,17 +95,17 @@ export default function Overview() {
                 </span>
               </div>
               <ul className="relative flex w-full md:w-1/3 mt-auto">
-                <li className="relative flex-1 text-center">
-                  Chart
-                  <div className="w-full h-1 absolute -bottom-8 md:-bottom-9 bg-blue-500" />
-                </li>
-                <li className="flex-1 text-center">Detailed Info</li>
+                {tabTypes.map((item, i) => (
+                  <li key={i} className="relative flex-1 text-center" onClick={() => setActiveTab(item)} aria-hidden>
+                    Chart
+                    {activeTab === item && <div className="w-full h-1 absolute -bottom-8 md:-bottom-9 bg-blue-500" />}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
-
-          <WeeklyChart />
-          {/* <Weekly items={forecasts} /> */}
+          {activeTab === 'Chart' && <WeeklyChart />}
+          {activeTab === 'Detailed Info' && 'This is 2'}
         </div>
       </div>
     </OverviewLayout>
