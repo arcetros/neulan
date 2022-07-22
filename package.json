@@ -28,10 +28,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
     "prettier:check": "prettier --config .prettierrc --check \"src/**/*.{ts,tsx,css,html}\""

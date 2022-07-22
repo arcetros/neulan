@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import moment from 'moment';
 import momenttz from 'moment-timezone';
 import { CgArrowsExchange } from 'react-icons/cg';
-import { OverviewLayout } from './Layouts';
+import { MainLayout } from '@/components/Layout';
 import Header from './Header';
 import Card from './Overview-extra/Card';
 import Loader from './UI/Loader/Loader';
@@ -43,7 +43,7 @@ export default function Overview() {
   const uv = forecasts?.current.uvi - forecasts?.hourly[0].uvi;
 
   return (
-    <OverviewLayout>
+    <MainLayout>
       <div className="w-full p-8 lg:px-16 gap-y-4 gap-x-4 flex flex-col md:flex-row items-start md:items-center justify-between border-b border-gray bg-white">
         <div className="w-1/3">
           {isRequested ? (
@@ -119,6 +119,6 @@ export default function Overview() {
           {activeTab === 'Detailed Info' && <DetailedInfo />}
         </div>
       </div>
-    </OverviewLayout>
+    </MainLayout>
   );
 }
