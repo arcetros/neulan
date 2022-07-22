@@ -15,11 +15,7 @@ export default function Card({ type, data, calculatedData, isMetric }: ICard) {
   const cardType = types;
   const Cards = cardType[type] && cardType[type];
   return (
-    <div
-      className={`px-8 w-full flex items-center justify-between h-24 rounded-md ${
-        isLoading && 'bg-gray-100 animate-pulse'
-      }`}
-    >
+    <div className={`px-8 w-full flex items-center justify-between h-24 rounded-md ${isLoading && 'animate-pulse'}`}>
       {!isLoading && <Cards data={data} calculatedData={calculatedData} isMetric={isMetric} />}
     </div>
   );
