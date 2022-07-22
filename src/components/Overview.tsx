@@ -72,10 +72,15 @@ export default function Overview() {
               </span>
             </div>
           </div>
-          <h1 className="px-8 col-span-2 text-lg mt-3 text-gray-400 font-light">{message}</h1>
+
+          {isRequested ? (
+            <Loader type="Message" />
+          ) : (
+            <h1 className="px-8 col-span-2 text-lg mt-3 text-gray-400 font-light">{message}</h1>
+          )}
           <div className="h-[2px] mt-8 w-full bg-gray-300" />
           <div className="my-5" />
-          <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className={`mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4 ${isRequested && 'mx-8'}`}>
             <Card type="WindSpeed" data={forecasts} calculatedData={windSpeed} isMetric={isMetric} />
             <Card type="RainChance" data={forecasts} calculatedData={rainChance} />
             <Card type="Preassure" data={forecasts} calculatedData={pressure} />
