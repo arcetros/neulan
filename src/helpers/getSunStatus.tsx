@@ -1,8 +1,8 @@
 import moment from 'moment';
 import momenttz from 'moment-timezone';
-import Loader from '../components/UI/Loader/Loader';
+import { Loader } from '@/components/Element/Loader';
 
-const getStatus = (status: number, time: string, isLoading: boolean, offset: string) => {
+export const getSunStatus = (status: number, time: string, isLoading: boolean, offset: string) => {
   if (status && time === 'when') {
     if (isLoading) {
       return <Loader type="SunCard" />;
@@ -24,5 +24,3 @@ const getStatus = (status: number, time: string, isLoading: boolean, offset: str
 
   return <div className="w-full my-auto h-2 bg-gray-500 bg-opacity-20 rounded-full animate-pulse" />;
 };
-
-export default getStatus;

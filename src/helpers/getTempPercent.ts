@@ -23,7 +23,7 @@ function difference(patokan: number, temp: number, isMetric: RegExpMatchArray | 
   return 0;
 }
 
-export default function getTemps(lowest: number, highest: number, units: string): Temps {
+export function getTempsPercent(lowest: number, highest: number, units: string): Temps {
   const isMetric = units.match(/metric/i);
 
   if (isMetric ? lowest < 20 : lowest < 68) {
