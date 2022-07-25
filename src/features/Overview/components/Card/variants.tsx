@@ -41,7 +41,7 @@ export function RainChance({ data, calculatedData, isMetric }: IType) {
       <BsCloudRain className="text-blue-500 w-7 h-7" />
       <div className="mr-auto ml-4 flex flex-col justify-center h-full">
         <span className="text-sm text-gray-600 dark:text-textDarkSub font-light">Rain Chance</span>
-        <span className="text-2xl text-gray-800 dark:text-textDarkMain">{data?.hourly[0].pop * 100}%</span>
+        <span className="text-2xl text-gray-800 dark:text-textDarkMain">{Math.round(data?.hourly[0].pop * 100)}%</span>
       </div>
       <div className="flex items-center gap-x-1">
         <IoMdArrowDropdown

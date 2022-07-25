@@ -28,26 +28,24 @@ export function DetailedInfo() {
           >
             <TableCell className="flex items-center">
               <div className="flex justify-between items-center w-24">
-                <span className="text-sm md:text-base text-gray-800">
+                <span className="font-light text-sm md:text-base text-gray-800 dark:text-textDarkMain">
                   {id === 0 ? 'Today' : moment.unix(item.dt).format('ddd')}
                 </span>
                 <span className="text-xs ml-2">{getLocalTime(item.dt, forecasts?.timezone).format('M/D')}</span>
               </div>
             </TableCell>
-            {!isMobile && (
-              <TableCell className="w-fit">
-                <img
-                  src={`http://openweathermap.org/img/wn/${item.weather.map((el) => el.icon)}${
-                    isMobile ? '' : '@2x'
-                  }.png`}
-                  alt="Weather Icon"
-                  className="relative"
-                />
-              </TableCell>
-            )}
+            <TableCell className="w-full lg:w-fit">
+              <img
+                src={`http://openweathermap.org/img/wn/${item.weather.map((el) => el.icon)}${
+                  isMobile ? '' : '@2x'
+                }.png`}
+                alt="Weather Icon"
+                className="relative"
+              />
+            </TableCell>
             <TableCell className="w-full">
               <div className="flex justify-between items-center gap-x-4">
-                <span className="flex gap-x-1 text-gray-500">
+                <span className="flex gap-x-1 text-blue-500">
                   <span className="flex items-center md:hidden">
                     <BiDownArrow className="fill-blue-500" />
                   </span>
@@ -70,7 +68,7 @@ export function DetailedInfo() {
                   <span className="flex items-center md:hidden">
                     <BiUpArrow className="fill-red-500" />
                   </span>
-                  <span className="text-inherit md:text-red-400"> {`${Math.floor(item.temp.max)}°`}</span>
+                  <span className="text-inherit text-red-500"> {`${Math.floor(item.temp.max)}°`}</span>
                 </span>
               </div>
             </TableCell>

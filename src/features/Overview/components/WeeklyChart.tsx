@@ -56,8 +56,9 @@ export function WeeklyChart() {
               <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name" />
+          <XAxis dataKey="name" stroke="#8899A6" />
           <YAxis
+            stroke="#8899A6"
             orientation="right"
             type="number"
             domain={[(dataMin: number) => Math.floor(dataMin - 0.9), (dataMax: number) => Math.floor(dataMax * 1.04)]}

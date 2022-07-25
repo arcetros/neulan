@@ -35,8 +35,8 @@ export function WeatherDescription() {
 export function Message() {
   return (
     <div className="flex mx-8 mt-3 gap-x-3">
-      <div className=" w-1/3 h-4 bg-gray-500 dark:bg-dark100 animate-pulse rounded-lg" />
-      <div className=" w-24 h-4 bg-gray-500 dark:bg-dark100 animate-pulse rounded-lg" />
+      <div className=" w-1/3 h-4 bg-gray-500 bg-opacity-20 animate-pulse rounded-lg" />
+      <div className=" w-24 h-4 bg-gray-500 bg-opacity-20 animate-pulse rounded-lg" />
     </div>
   );
 }

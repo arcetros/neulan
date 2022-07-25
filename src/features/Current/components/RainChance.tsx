@@ -29,7 +29,9 @@ function Chart({ percent, dateTime }: IIsActive) {
         )}
 
         <div
-          className={`absolute left-0 top-1 bg-[#2a4263] rounded-xl z-0 w-full h-6 ${isLoading && 'animate-pulse'}`}
+          className={`absolute left-0 top-1 bg-[#2a4263] dark:bg-dark300 rounded-xl z-0 w-full h-6 ${
+            isLoading && 'animate-pulse'
+          }`}
         />
       </div>
       <span className="flex items-center font-light text-sm text-gray-200 w-16 h-full">
