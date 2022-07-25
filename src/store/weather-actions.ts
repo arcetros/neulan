@@ -89,7 +89,6 @@ export const getGeo = (units: string) => async (dispatch: AppDispatch) => {
     geolocationAPI.getCurrentPosition(
       (position) => {
         const { coords } = position;
-        // console.log(coords.latitude, coords.longitude);
         dispatchAction(coords.latitude, coords.longitude);
       },
       // if geolocation is denied, use browser ip geolocation instead.

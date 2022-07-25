@@ -38,6 +38,7 @@ export function WeeklyChart() {
       temperature: Math.floor((currentForecast?.daily[6].temp.max + currentForecast?.daily[6].temp.min) / 2),
     },
   ];
+
   return (
     <div className="w-full mx-8 min-h-[400px] flex">
       <ResponsiveContainer width="100%" height={isMobile ? 200 : 400} className="w-full m-auto">

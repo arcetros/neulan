@@ -6,8 +6,7 @@ import { useDispatch, useSelector, store } from '@/store';
 import { Overview, Current } from '@/features';
 
 function App() {
-  const { isRequested } = useSelector((state) => state?.weather);
-  const townName = useSelector((state) => state?.weather?.current_weather?.name);
+  const { isRequested, current_weather: forecasts } = useSelector((state) => state?.weather);
   const dispatch = useDispatch();
 
   const firstRender = useRef(false);
@@ -25,38 +24,39 @@ function App() {
   const newSearchParams = new URLSearchParams({ lat: newSort.lat, lon: newSort.lon, units: newSort.units });
 
   useEffect(() => {
-    const fetch = async () => {
-      await dispatch(getGeo(store.getState().weather.units));
-    };
-
-    if (!firstRender.current) {
-      if (latCoord && lonCoord && unitParams) {
+    if (!firstRender.current && latCoord && lonCoord && unitParams) {
+      if (latCoord === 'undefined') {
         if (unitParams !== store.getState().weather.units) {
           dispatch(weatherActions.changeUnits(unitParams));
         }
-        dispatch(fetchForecast(parseFloat(latCoord), parseFloat(lonCoord), unitParams));
+        dispatch(getGeo(store.getState().weather.units));
       } else {
-        fetch().then(() => {
-          setSearchParams(newSearchParams);
-        });
+        dispatch(fetchForecast(parseFloat(latCoord), parseFloat(lonCoord), unitParams));
       }
-
-      firstRender.current = true;
     }
+
+    if (firstRender.current === false) {
+      firstRender.current = true;
+      if (!latCoord || !lonCoord) {
+        dispatch(getGeo(store.getState().weather.units));
+      } else if (latCoord && lonCoord && !unitParams)
+        dispatch(fetchForecast(parseFloat(latCoord), parseFloat(lonCoord), store.getState().weather.units));
+    }
+
     setSearchParams(newSearchParams);
   }, [isRequested]);
 
   useEffect(() => {
     const prevTitle = document.title;
-    if (!townName) {
+    if (!forecasts?.name) {
       document.title = `${prevTitle} — Loading`;
     } else {
-      document.title = `${prevTitle} — ${townName}`;
+      document.title = `${prevTitle} — ${forecasts.name}`;
     }
     return () => {
       document.title = prevTitle;
     };
-  }, [townName]);
+  }, [forecasts]);
 
   return (
     <div className="flex flex-col lg:flex-row justify-between h-auto lg:h-screen overflow-x-hidden lg:overflow-hidden bg-gray-50 dark:bg-dark300 transition duration-200">
