@@ -1,5 +1,5 @@
 /* eslint-disable no-unsafe-optional-chaining */
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { useMobile } from '@/hooks';
 import { useSelector } from '@/store';
 import { getLocalTime } from '@/helpers';
@@ -56,7 +56,6 @@ export function WeeklyChart() {
               <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis
             orientation="right"
@@ -65,7 +64,14 @@ export function WeeklyChart() {
             allowDataOverflow
           />
           <Tooltip />
-          <Area type="monotone" dataKey="temperature" stroke="#8884d8" fillOpacity={1} fill="url(#temperature)" />
+          <Area
+            type="monotone"
+            dataKey="temperature"
+            legendType="none"
+            stroke="none"
+            fillOpacity={1}
+            fill="url(#temperature)"
+          />
         </AreaChart>
       </ResponsiveContainer>
     </div>

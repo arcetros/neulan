@@ -16,7 +16,7 @@ export function Card({ type, data, calculatedData, isMetric }: ICard) {
   return (
     <div
       className={`px-8 w-full flex items-center justify-between h-24 rounded-md ${
-        isLoading && 'bg-gray-100 animate-pulse'
+        isLoading && 'bg-gray-100 dark:bg-dark100 animate-pulse'
       }`}
     >
       {!isLoading && <Cards data={data} calculatedData={calculatedData} isMetric={isMetric} />}

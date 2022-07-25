@@ -44,14 +44,18 @@ export function Header() {
   const currentDate = momenttz.tz(now, offset);
 
   return (
-    <header className="w-full p-8 lg:px-16 gap-y-4 gap-x-4 flex flex-col md:flex-row items-start md:items-center justify-between border-b border-gray bg-white">
+    <header className="mt-8 lg:mt-0 mx-2 lg:mx-0 rounded-xl lg:rounded-none p-8 lg:px-16 gap-y-4 gap-x-4 flex flex-col md:flex-row items-start md:items-center justify-between bg-white dark:bg-[#192734]">
       <div className="w-1/3">
         {isRequested ? (
           <Loader type="MainDate" />
         ) : (
           <div className="flex flex-col">
-            <span className="text-xl md:text-2xl font-bold text-gray-700">{currentDate.format('MMMM YYYY')}</span>
-            <span className="text-sm md:text-base text-gray-500">{currentDate.format('dddd, MMM DD, YYYY')}</span>
+            <span className="text-xl md:text-2xl font-bold text-gray-700 dark:text-textDarkMain">
+              {currentDate.format('MMMM YYYY')}
+            </span>
+            <span className="text-sm md:text-base text-gray-500 dark:text-textDarkSub">
+              {currentDate.format('dddd, MMM DD, YYYY')}
+            </span>
           </div>
         )}
       </div>

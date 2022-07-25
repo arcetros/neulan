@@ -9,7 +9,7 @@ export function Overview() {
   return (
     <MainLayout>
       <Header />
-      <div className="h-full px-2 pb-8 lg:px-16 dark:bg-red-500">
+      <div className="h-full px-2 pb-8 lg:px-16">
         <Condition />
         <div className="my-8" />
         <Weekly />
