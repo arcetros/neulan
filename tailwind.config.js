@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
@@ -17,5 +18,6 @@ module.exports = {
       primary: ['"Lexend Deca"', ...defaultTheme.fontFamily.sans],
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar')],
+  variants: { scrollbar: ['dark', 'rounded'] },
 };

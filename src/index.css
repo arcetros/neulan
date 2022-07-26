@@ -10,6 +10,9 @@
   .cell-right {
     @apply text-right flex-row-reverse;
   }
+  .portal {
+    @apply h-screen w-screen fixed inset-0 overflow-auto;
+  }
 }
 
 html {

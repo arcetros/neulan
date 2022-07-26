@@ -1,11 +1,10 @@
+import { VscGear } from 'react-icons/vsc';
 import { Header } from '@/components/Header';
 import { MainLayout } from '@/components/Layout';
 import { Condition } from './components/Condition';
 import { Weekly } from './components';
-import useDarkMode from '@/hooks/useDarkMode';
 
 export function Overview() {
-  const { toggleDarkMode } = useDarkMode();
   return (
     <MainLayout>
       <Header />
@@ -13,9 +12,6 @@ export function Overview() {
         <Condition />
         <div className="my-8" />
         <Weekly />
-        <span onClick={() => toggleDarkMode()} aria-hidden>
-          Toggle Dark mode
-        </span>
       </div>
     </MainLayout>
   );

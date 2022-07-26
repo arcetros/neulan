@@ -6,7 +6,7 @@ interface IMainLayout {
 
 export function MainLayout({ children }: IMainLayout) {
   return (
-    <div className="relative flex flex-col mx-auto w-full md:w-full lg:max-w-[120rem] overflow-x-hidden flex-1 justify-between">
+    <div className="relative flex flex-col mx-auto w-full md:w-full lg:max-w-[120rem] overflow-x-hidden flex-1 justify-between scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-300 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800">
       <main className="flex flex-col gap-y-8">{children}</main>
       <footer className="py-8">
         <span className="flex mx-auto justify-center dark:text-textDarkMain items-center w-full">

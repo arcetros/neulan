@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export default function useDarkMode() {
+export function useDarkMode() {
   const [darkMode, setDarkMode] = useState(false);
   const element = document.querySelector<HTMLElement>('html');
 

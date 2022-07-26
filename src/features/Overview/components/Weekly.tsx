@@ -10,7 +10,7 @@ export function Weekly() {
   const [activeTab, setActiveTab] = useState(tabTypes[0]);
   const { forecasts } = useSelector((state) => state.weather);
   return (
-    <div className="flex flex-col w-full bg-white dark:bg-dark200 rounded-xl shadow-md py-8">
+    <div className="flex flex-col w-full bg-white dark:bg-dark200 rounded-xl shadow-md dark:shadow-none py-8">
       <div className="mb-4 border-b-2 border-gray-300 dark:border-dark100 w-full">
         <div className="flex flex-col md:flex-row mx-8 pb-8 justify-between items-start">
           <div className="mb-8 lg:mb-0">

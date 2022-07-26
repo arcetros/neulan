@@ -1,20 +1,30 @@
 import { useEffect } from 'react';
-import { CgArrowsExchange } from 'react-icons/cg';
+import { BsThreeDots } from 'react-icons/bs';
 import { useSelector, useDispatch } from '@/store';
 import { fetchForecast } from '@/store/weather-actions';
 import { weatherActions } from '@/store/weather-slice';
 import { Loader } from '@/components/Element/Loader';
+import Portal from '@/helpers/Portal';
+import { useToggle, useDarkMode } from '@/hooks';
 import { Card } from './Card';
 
 export function Condition() {
   const dispatch = useDispatch();
+  const [toggle, setToggle] = useToggle(false);
+  const { toggleDarkMode, darkMode } = useDarkMode();
   const { units, isRequested, forecasts, message } = useSelector((state) => state.weather);
 
   const IsMetric = units.match(/metric/i);
 
   const handleUnits = () => {
+    setToggle();
     if (IsMetric) return dispatch(weatherActions.changeUnits('imperial'));
     return dispatch(weatherActions.changeUnits('metric'));
+  };
+
+  const handleDarkMode = () => {
+    setToggle();
+    toggleDarkMode();
   };
 
   useEffect(() => {
@@ -34,13 +44,35 @@ export function Condition() {
         <h1 className="text-base md:text-xl text-gray-600 dark:text-textDarkMain font-bold">Today Overview</h1>
 
         <div
-          className="cursor-pointer flex items-center gap-x-2 text-gray-600 dark:text-textDarkSub text-sm"
-          onClick={handleUnits}
+          className="relative w-1/2 lg:w-1/4 justify-end flex items-center gap-x-2 text-gray-600 dark:text-textDarkSub text-sm"
           aria-hidden
         >
-          <span className="flex border border-gray-200 dark:border-dark100 bg-gray-100 dark:bg-dark300 rounded-full p-2">
-            {IsMetric ? '°C' : '°F'} <CgArrowsExchange className="w-5 h-5" /> {!IsMetric ? '°C' : '°F'}
-          </span>
+          <div
+            className={`absolute right-0 top-8 bg-white dark:bg-dark100 rounded w-fit p-1 z-10 text-xs shadow transition-all duration-200 ${
+              toggle ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            {toggle && (
+              <ul className="flex flex-col gap-y-3">
+                <li
+                  className="hover:bg-slate-100 dark:hover:bg-dark300 p-4 rounded cursor-pointer"
+                  onClick={handleUnits}
+                  aria-hidden
+                >
+                  Change unit to {IsMetric ? 'Imperial' : 'Metric'}
+                </li>
+                <li
+                  className="hover:bg-slate-100 dark:hover:bg-dark300 p-4 rounded cursor-pointer"
+                  onClick={handleDarkMode}
+                  aria-hidden
+                >
+                  Switch to {darkMode ? 'Light' : 'Dark'} mode
+                </li>
+              </ul>
+            )}
+          </div>
+          <BsThreeDots className="w-8 h-8 cursor-pointer z-20 hover:bg-dark-300" onClick={() => setToggle()} />
+          {toggle && <Portal className="portal" onClick={setToggle} />}
         </div>
       </div>
 

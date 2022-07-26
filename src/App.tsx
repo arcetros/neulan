@@ -59,7 +59,7 @@ function App() {
   }, [forecasts]);
 
   return (
-    <div className="flex flex-col lg:flex-row justify-between h-auto lg:h-screen overflow-x-hidden lg:overflow-hidden bg-gray-50 dark:bg-dark300 transition duration-200">
+    <div className="flex flex-col lg:flex-row justify-between h-auto lg:h-screen overflow-x-hidden lg:overflow-hidden bg-gray-50 dark:bg-dark300">
       <Overview />
       <Current />
     </div>
