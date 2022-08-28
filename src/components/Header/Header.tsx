@@ -20,7 +20,7 @@ export function Header() {
   useEffect(() => {
     const recent = JSON.parse(localStorage.getItem('recent_search') || '[]');
     if (recent) setRecentSearch(recent);
-  }, [isRequested]);
+  }, [cities]);
 
   const handleChange = async (event: React.FormEvent<HTMLInputElement>) => {
     if (event.currentTarget.value) {

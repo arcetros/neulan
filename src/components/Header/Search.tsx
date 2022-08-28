@@ -42,7 +42,9 @@ export function Search({ value, handleReset, handleChange, setToggle, toggle, it
             <li
               key={id}
               className="flex items-center gap-x-4 px-3 py-1.5 relative cursor-pointer "
-              onMouseDown={() => handleSelect(item.lat, item.lon, `${item.name}, ${item.state}, ${item.country}`)}
+              onMouseDown={() =>
+                handleSelect(item.lat, item.lon, `${item.name}${item.state ? `, ${item.state}` : ''}, ${item.country}`)
+              }
               aria-hidden
             >
               <FaMapMarkerAlt className="text-gray-400 dark:text-100 w-4 h-4" />
@@ -61,7 +63,7 @@ export function Search({ value, handleReset, handleChange, setToggle, toggle, it
                 <li
                   className="flex items-center gap-x-4 py-1.5 relative cursor-pointer"
                   key={id}
-                  onMouseDown={() => handleSelect(item.lat, item.lon, `${item.name}, ${item.state}, ${item.country}`)}
+                  onMouseDown={() => handleSelect(item.lat, item.lon, item.name)}
                   aria-hidden
                 >
                   <FaMapMarkerAlt className="text-gray-400 dark:text-100 w-4 h-4" />
