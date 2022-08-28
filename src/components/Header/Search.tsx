@@ -11,10 +11,11 @@ interface ISearch {
   toggle: boolean;
   setToggle: () => void;
   items: CityModel[];
-  handleSelect: (lat: number, lon: number) => Promise<void>;
+  recent: any[];
+  handleSelect: (lat: number, lon: number, name: string) => Promise<void>;
 }
 
-export function Search({ value, handleReset, handleChange, setToggle, toggle, items, handleSelect }: ISearch) {
+export function Search({ value, handleReset, handleChange, setToggle, toggle, items, handleSelect, recent }: ISearch) {
   return (
     <div className="relative w-full font-light">
       <FiSearch className="absolute top-1/2 transform -translate-y-1/2 left-3 w-5 h-auto text-gray-400" />
@@ -36,12 +37,12 @@ export function Search({ value, handleReset, handleChange, setToggle, toggle, it
         onBlur={setToggle}
       />
       {toggle && (
-        <ul className="absolute bg-gray-50 dark:bg-dark200 w-full rounded-b -mt-0.8">
+        <ul className="absolute bg-gray-50 dark:bg-dark300 w-full rounded-b -mt-0.8 shadow">
           {items?.map((item, id) => (
             <li
               key={id}
               className="flex items-center gap-x-4 px-3 py-1.5 relative cursor-pointer "
-              onMouseDown={() => handleSelect(item.lat, item.lon)}
+              onMouseDown={() => handleSelect(item.lat, item.lon, `${item.name}, ${item.state}, ${item.country}`)}
               aria-hidden
             >
               <FaMapMarkerAlt className="text-gray-400 dark:text-100 w-4 h-4" />
@@ -53,6 +54,22 @@ export function Search({ value, handleReset, handleChange, setToggle, toggle, it
               </span>
             </li>
           ))}
+          <div className="px-3 mt-3">
+            <h1 className="text-gray-400 dark:text-100 mb-2">Your recent search</h1>
+            {recent &&
+              recent?.map((item, id) => (
+                <li
+                  className="flex items-center gap-x-4 py-1.5 relative cursor-pointer"
+                  key={id}
+                  onMouseDown={() => handleSelect(item.lat, item.lon, `${item.name}, ${item.state}, ${item.country}`)}
+                  aria-hidden
+                >
+                  <FaMapMarkerAlt className="text-gray-400 dark:text-100 w-4 h-4" />
+
+                  <span className="text-gray-600 dark:text-gray-300 text-sm font-light">{item.name}</span>
+                </li>
+              ))}
+          </div>
         </ul>
       )}
     </div>
