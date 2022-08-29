@@ -39,7 +39,7 @@ export function Condition() {
   const props = { data: forecasts, isMetric: IsMetric };
 
   return (
-    <div className="bg-white dark:bg-dark200 rounded-xl shadow-md dark:shadow-none py-8">
+    <div className="bg-white dark:bg-dark200 rounded-xl shadow-md dark:shadow-none py-8 lg:max-w-[120rem] mx-auto">
       <div className="px-8 flex justify-between items-center">
         <h1 className="text-base md:text-xl text-gray-600 dark:text-textDarkMain font-bold">Today Overview</h1>
 
