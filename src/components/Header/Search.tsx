@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import React from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { FaMapMarkerAlt } from 'react-icons/fa';
@@ -13,9 +14,20 @@ interface ISearch {
   items: CityModel[];
   recent: any[];
   handleSelect: (lat: number, lon: number, name: string) => Promise<void>;
+  removeLocalEntries: () => void;
 }
 
-export function Search({ value, handleReset, handleChange, setToggle, toggle, items, handleSelect, recent }: ISearch) {
+export function Search({
+  value,
+  handleReset,
+  handleChange,
+  setToggle,
+  toggle,
+  items,
+  handleSelect,
+  recent,
+  removeLocalEntries,
+}: ISearch) {
   return (
     <div className="relative w-full font-light">
       <FiSearch className="absolute top-1/2 transform -translate-y-1/2 left-3 w-5 h-auto text-gray-400" />
@@ -59,18 +71,28 @@ export function Search({ value, handleReset, handleChange, setToggle, toggle, it
           <div className="px-3 mt-3">
             <h1 className="text-gray-400 dark:text-100 mb-2">Your recent search</h1>
             {recent &&
-              recent?.map((item, id) => (
-                <li
-                  className="flex items-center gap-x-4 py-1.5 relative cursor-pointer"
-                  key={id}
-                  onMouseDown={() => handleSelect(item.lat, item.lon, item.name)}
-                  aria-hidden
-                >
-                  <FaMapMarkerAlt className="text-gray-400 dark:text-100 w-4 h-4" />
+              recent
+                .slice(-5)
+                .reverse()
+                .map((item, id) => (
+                  <li
+                    className="flex items-center gap-x-4 py-1.5 relative cursor-pointer"
+                    key={id}
+                    onMouseDown={() => handleSelect(item.lat, item.lon, item.name)}
+                    aria-hidden
+                  >
+                    <FaMapMarkerAlt className="text-gray-400 dark:text-100 w-4 h-4" />
 
-                  <span className="text-gray-600 dark:text-gray-300 text-sm font-light">{item.name}</span>
-                </li>
-              ))}
+                    <span className="text-gray-600 dark:text-gray-300 text-sm font-light">{item.name}</span>
+                  </li>
+                ))}
+            <button
+              className="float-right my-2 text-gray-600 dark:text-gray-300 hover:underline text-sm cursor-pointer z-50"
+              onMouseDown={() => removeLocalEntries()}
+              aria-hidden
+            >
+              Clear search history
+            </button>
           </div>
         </ul>
       )}

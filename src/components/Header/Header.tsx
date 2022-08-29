@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 import momenttz from 'moment-timezone';
@@ -45,9 +46,25 @@ export function Header() {
       name,
     };
 
-    existingEntries.push(entries);
+    const entriesDuplicates = existingEntries.some((obj: typeof String) => obj.name === entries.name);
 
-    localStorage.setItem('recent_search', JSON.stringify(existingEntries));
+    if (!entriesDuplicates) {
+      existingEntries.push(entries);
+      return localStorage.setItem('recent_search', JSON.stringify(existingEntries));
+    }
+
+    const moveCurrentObject = existingEntries
+      .filter((obj: any) => obj.name !== name)
+      .concat(existingEntries.filter((obj: any) => obj.name === name));
+
+    setRecentSearch(moveCurrentObject);
+
+    return localStorage.setItem('recent_search', JSON.stringify(moveCurrentObject));
+  };
+
+  const removeLocalEntries = () => {
+    localStorage.removeItem('recent_search');
+    setRecentSearch([]);
   };
 
   const handleSelect = async (lat: number, lon: number, name: string) => {
@@ -94,6 +111,7 @@ export function Header() {
             toggle={toggle}
             items={cities}
             handleSelect={handleSelect}
+            removeLocalEntries={removeLocalEntries}
           />
         </div>
       </div>
