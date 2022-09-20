@@ -91,7 +91,7 @@ export function Header() {
           <Loader type="MainDate" />
         ) : (
           <div className="flex flex-col">
-            <span className="text-xl md:text-2xl font-bold text-gray-700 dark:text-textDarkMain">
+            <span className="text-xl md:text-xl font-bold text-gray-700 dark:text-textDarkMain">
               {currentDate.format('MMMM YYYY')}
             </span>
             <span className="text-sm md:text-base text-gray-500 dark:text-textDarkSub">

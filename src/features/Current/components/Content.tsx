@@ -60,7 +60,7 @@ export function Content() {
             )}
           </div>
           <div className="flex flex-col gap-y-4 text-gray-200 font-light">
-            <div className="flex items-center justify-between border-gray-500 border-b pb-4">
+            <div className="flex items-center justify-between border-[hsla(214,34%,38%,1)] dark:border-dark100 border-b pb-4">
               {isRequested ? (
                 <Loader type="WeatherDescription" />
               ) : (

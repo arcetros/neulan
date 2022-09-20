@@ -40,7 +40,7 @@ export function Search({
       <input
         type="text"
         onChange={handleChange}
-        placeholder="Search location here"
+        placeholder="Search location"
         className={`font-light w-full bg-gray-50 dark:bg-dark300 text-gray-600 dark:text-gray-200 px-0 lg:px-11 py-3 pl-10 outline-none placeholder:text-sm ${
           toggle ? 'rounded-t' : 'rounded'
         }`}

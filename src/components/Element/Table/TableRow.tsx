@@ -22,7 +22,7 @@ export function TableRow({ children, onClick, isActive, disable, content }: ITab
     <div className="flex flex-col justify-between min-w-full h-full">
       <div
         className={`flex items-center h-12 hover:bg-gray-50 dark:hover:bg-dark100 rounded-lg cursor-pointer ${
-          isActive && 'bg-dark100'
+          isActive && 'bg-gray-50 dark:bg-dark100'
         }`}
         onClick={handleClick}
         aria-hidden

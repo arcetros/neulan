@@ -41,7 +41,7 @@ export function Condition() {
   return (
     <div className="bg-white dark:bg-dark200 rounded-xl shadow-md dark:shadow-none py-8 lg:max-w-[120rem] mx-auto">
       <div className="px-8 flex justify-between items-center">
-        <h1 className="text-base md:text-xl text-gray-600 dark:text-textDarkMain font-bold">Today Overview</h1>
+        <h1 className="text-base md:text-lg text-gray-600 dark:text-textDarkMain font-bold">Today Overview</h1>
 
         <div
           className="relative w-1/2 lg:w-1/4 justify-end flex items-center gap-x-2 text-gray-600 dark:text-textDarkSub text-sm"
@@ -79,10 +79,8 @@ export function Condition() {
       {isRequested ? (
         <Loader type="Message" />
       ) : (
-        <h1 className="px-8 col-span-2 text-lg mt-3 text-gray-400 dark:text-textDarkSub font-light">{message}</h1>
+        <h1 className="px-8 col-span-2 mt-2 text-gray-400 dark:text-textDarkSub font-light">{message}</h1>
       )}
-      <div className="h-[2px] mt-8 w-full bg-gray-300 dark:bg-dark100" />
-      <div className="my-5" />
       <div className={`mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4 ${isRequested && 'mx-8'}`}>
         <Card type="WindSpeed" {...props} calculatedData={windSpeed} />
         <Card type="RainChance" {...props} calculatedData={rainChance} />

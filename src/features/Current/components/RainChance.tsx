@@ -14,6 +14,8 @@ function Chart({ percent, dateTime }: IIsActive) {
   const offset = dateTime?.offset;
   const currentTime = momenttz.tz(time, offset);
 
+  // border-[hsla(214,34%,38%,1)] dark:border-dark100
+
   return (
     <div className="relative flex justify-between items-center gap-x-6 h-full">
       <span className="flex z-30 font-light text-sm text-gray-200 w-16 items-center h-full whitespace-pre">
@@ -29,9 +31,8 @@ function Chart({ percent, dateTime }: IIsActive) {
         )}
 
         <div
-          className={`absolute left-0 top-1 bg-[#2a4263] dark:bg-dark300 rounded-xl z-0 w-full h-6 ${
-            isLoading && 'animate-pulse'
-          }`}
+          className={`absolute left-0 top-1 bg-[hsl(212,37%,24%)] 
+           rounded-xl z-0 w-full h-6 ${isLoading && 'animate-pulse'}`}
         />
       </div>
       <span className="flex items-center font-light text-sm text-gray-200 w-16 h-full">
