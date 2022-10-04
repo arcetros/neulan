@@ -1,13 +1,12 @@
-import React from 'react';
 import moment from 'moment';
 import momenttz from 'moment-timezone';
 import { getName } from 'country-list';
-import { useMobile } from '@/hooks/useMobile';
-import { useSelector } from '@/store';
+import { useMobile } from '@hooks/index';
+import { useSelector } from '@store/index';
+import { getSunStatus } from '@helpers/getSunStatus';
+import { Loader } from '@components/Element/Loader';
 import { RainChance } from './RainChance';
-import { Loader } from '@/components/Element/Loader';
 import { SunStatus } from './SunStatus';
-import { getSunStatus } from '@/helpers';
 
 export function Content() {
   const isMobile = useMobile();

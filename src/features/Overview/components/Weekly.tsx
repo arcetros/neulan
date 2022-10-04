@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useSelector } from '@/store';
-import { getLocalTime } from '@/helpers';
+import { useSelector } from '@store/index';
+import { getLocalTime } from '@helpers/getLocalTime';
 import { DetailedInfo } from './DetailedInfo';
 import { WeeklyChart } from './WeeklyChart';
 

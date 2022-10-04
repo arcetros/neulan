@@ -1,4 +1,4 @@
-import { SideLayout } from '@/components/Layout';
+import { SideLayout } from '@components/Layout';
 import { Content } from './components';
 
 export function Current() {

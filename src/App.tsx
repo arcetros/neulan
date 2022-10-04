@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getGeo, fetchForecast } from '@/store/weather-actions';
-import { weatherActions } from '@/store/weather-slice';
-import { useDispatch, useSelector, store } from '@/store';
-import { Overview, Current } from '@/features';
+import { weatherActions } from '@store/weather-slice';
+import { getGeo, fetchForecast } from '@store/weather-actions';
+import { useDispatch, useSelector, store } from '@store/index';
+import { Overview, Current } from '@features/index';
 
 function App() {
   const { isRequested, current_weather: forecasts } = useSelector((state) => state?.weather);

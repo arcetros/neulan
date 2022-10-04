@@ -1,6 +1,6 @@
 import moment from 'moment';
 import momenttz from 'moment-timezone';
-import { useSelector } from '@/store';
+import { useSelector } from '@store/index';
 
 interface IIsActive {
   percent: string;

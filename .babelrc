@@ -1,0 +1,19 @@
+{
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "extensions": [".ts", ".tsx", ".js", "jsx", ".json"],
+        "alias": {
+          "@store": "./src/store",
+          "@components": "./src/components",
+          "@features": "./src/features",
+          "@helpers": "./src/helpers",
+          "@hooks": "./src/hooks/index",
+          "@types": "./src/types/index"
+        }
+      }
+    ]
+  ]
+}

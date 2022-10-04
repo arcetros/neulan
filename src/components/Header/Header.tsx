@@ -2,11 +2,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 import momenttz from 'moment-timezone';
-import { useDispatch, useSelector, store } from '@/store';
-import { fetchCity, fetchForecast } from '@/store/weather-actions';
-import { useDebounce, useToggle } from '@/hooks';
+import { useDispatch, useSelector, store } from '@store/index';
+import { useDebounce, useToggle } from '@hooks/index';
+import { fetchCity, fetchForecast } from '@store/weather-actions';
+import { Loader } from '@components/Element/Loader';
 import { Search } from './Search';
-import { Loader } from '@/components/Element/Loader';
 
 export function Header() {
   const dispatch = useDispatch();
