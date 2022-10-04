@@ -1,9 +1,8 @@
 {
-  "name": "forecasting",
+  "name": "neulan",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.4.5",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
@@ -29,10 +28,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "craco eject",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
     "prettier:check": "prettier --config .prettierrc --check \"src/**/*.{ts,tsx,css,html}\""
@@ -63,7 +61,6 @@
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
     "autoprefixer": "^10.4.7",
-    "craco-alias": "^3.0.1",
     "eslint": "^8.15.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
