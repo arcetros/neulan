@@ -1,5 +1,5 @@
 import { BsSunrise, BsSunset, BsSunFill, BsFillMoonFill } from 'react-icons/bs';
-import { DailyForecast } from '@/types';
+import { DailyForecast } from '../../../types';
 
 interface IDetailedContent {
   item: DailyForecast;

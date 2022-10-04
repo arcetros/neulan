@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
-import { useSelector, useDispatch } from '@/store';
-import { fetchForecast } from '@/store/weather-actions';
-import { weatherActions } from '@/store/weather-slice';
-import { Loader } from '@/components/Element/Loader';
-import Portal from '@/helpers/Portal';
-import { useToggle, useDarkMode } from '@/hooks';
+import { useSelector, useDispatch } from '@store/index';
+import { fetchForecast } from '@store/weather-actions';
+import { weatherActions } from '@store/weather-slice';
+import { Loader } from '@components/Element/Loader';
+import Portal from '@helpers/Portal';
+import { useToggle, useDarkMode } from '@hooks/index';
 import { Card } from './Card';
 
 export function Condition() {

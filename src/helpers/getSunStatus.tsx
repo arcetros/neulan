@@ -1,6 +1,6 @@
 import moment from 'moment';
 import momenttz from 'moment-timezone';
-import { Loader } from '@/components/Element/Loader';
+import { Loader } from '@components/Element/Loader';
 
 export const getSunStatus = (status: number, time: string, isLoading: boolean, offset: string) => {
   if (status && time === 'when') {

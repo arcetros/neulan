@@ -1,8 +1,8 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { useMobile } from '@/hooks';
-import { useSelector } from '@/store';
-import { getLocalTime } from '@/helpers';
+import { useMobile } from '@hooks/index';
+import { getLocalTime } from '@helpers/getLocalTime';
+import { useSelector } from '@store/index';
 
 export function WeeklyChart() {
   const { isMobile } = useMobile();

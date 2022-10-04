@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react';
 import { BiDownArrow, BiUpArrow } from 'react-icons/bi';
 import moment from 'moment';
-import { Dropdown } from './Dropdown';
+import { useSelector } from '@store/index';
+import { useMobile } from '@hooks/index';
+import { getLocalTime, getTempsPercent } from '@helpers/index';
+import { Table, TableCell, TableRow } from '@components/Element/Table';
 import { Temperature } from './Temperature';
-import { useSelector } from '@/store';
-import { useMobile } from '@/hooks';
-import { getLocalTime, getTempsPercent } from '@/helpers';
-import { Table, TableCell, TableRow } from '@/components/Element/Table';
+import { Dropdown } from './Dropdown';
 
 export function DetailedInfo() {
   const { isMobile } = useMobile();

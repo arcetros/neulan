@@ -1,6 +1,6 @@
+import { useSelector } from '@store/index';
+import { Forecasts } from '../../../../types';
 import * as variants from './variants';
-import { useSelector } from '@/store';
-import { Forecasts } from '@/types';
 
 export type ICard = {
   type: keyof typeof variants;

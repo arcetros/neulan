@@ -1,6 +1,6 @@
 import { VscGear } from 'react-icons/vsc';
-import { Header } from '@/components/Header';
-import { MainLayout } from '@/components/Layout';
+import { Header } from '@components/Header';
+import { MainLayout } from '@components/Layout';
 import { Condition } from './components/Condition';
 import { Weekly } from './components';
 
