@@ -1,17 +1,21 @@
 import { useState, useMemo } from 'react';
 import { BiDownArrow, BiUpArrow } from 'react-icons/bi';
 import moment from 'moment';
-import { useSelector } from '@store/index';
 import { useMobile } from '@hooks/index';
 import { getLocalTime, getTempsPercent } from '@helpers/index';
 import { Table, TableCell, TableRow } from '@components/Element/Table';
+import { Forecasts } from 'type';
 import { Temperature } from './Temperature';
 import { Dropdown } from './Dropdown';
 
-export function DetailedInfo() {
+interface IDetailedInfo {
+  forecasts: Forecasts;
+  units: string;
+}
+
+export function DetailedInfo({ forecasts, units }: IDetailedInfo) {
   const { isMobile } = useMobile();
   const [activeIndex, setActiveIndex] = useState(null as any);
-  const { forecasts, units } = useSelector((state) => state.weather);
 
   const memoizedItems = useMemo(
     () =>

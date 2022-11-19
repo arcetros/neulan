@@ -2,11 +2,15 @@
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { useMobile } from '@hooks/index';
 import { getLocalTime } from '@helpers/getLocalTime';
-import { useSelector } from '@store/index';
+import { Forecasts } from 'type';
 
-export function WeeklyChart() {
+interface IWeeklyChart {
+  currentForecast: Forecasts;
+  isLoading: boolean;
+}
+
+export function WeeklyChart({ currentForecast, isLoading }: IWeeklyChart) {
   const { isMobile } = useMobile();
-  const { forecasts: currentForecast, isRequested: isLoading } = useSelector((state) => state.weather);
 
   const data = [
     {

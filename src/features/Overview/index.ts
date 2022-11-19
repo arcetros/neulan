@@ -1,2 +1,1 @@
-export { Condition } from './Condition';
-export { Weekly } from './Weekly';
+export { default as Overview } from './Overview';
