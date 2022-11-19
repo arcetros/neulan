@@ -22,9 +22,9 @@
       "@features/*": ["./features/*"],
       "@helpers/*": ["./helpers/*"],
       "@hooks/*": ["./hooks/*"],
-      "@types/*": ["./types/*"]
+      "@type/*": ["./@type/*"]
     }
   },
-  "exclude": ["node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest", "src/setupTests.ts"],
-  "include": ["src"]
+  "exclude": ["./node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest", "src/setupTests.ts"],
+  "include": ["./src"]
 }

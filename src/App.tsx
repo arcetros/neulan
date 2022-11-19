@@ -3,7 +3,9 @@ import { useSearchParams } from 'react-router-dom';
 import { weatherActions } from '@store/weather-slice';
 import { getGeo, fetchForecast } from '@store/weather-actions';
 import { useDispatch, useSelector, store } from '@store/index';
-import { Overview, Current } from '@features/index';
+import { Current, Overview } from '@features/index';
+import { MainLayout, SideLayout } from '@components/Layout';
+import { Header } from '@components/Header';
 
 function App() {
   const { isRequested, current_weather: forecasts } = useSelector((state) => state?.weather);
@@ -60,8 +62,13 @@ function App() {
 
   return (
     <div className="flex flex-col lg:flex-row justify-between h-auto lg:h-screen overflow-x-hidden lg:overflow-hidden bg-gray-50 dark:bg-dark300">
-      <Overview />
-      <Current />
+      <MainLayout>
+        <Header />
+        <Overview />
+      </MainLayout>
+      <SideLayout>
+        <Current />
+      </SideLayout>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CityModel, CityArrayModel } from '../types';
+import { CityModel, CityArrayModel } from '../type';
 
 export const initialWeatherState: CityArrayModel = {
   my_location: null as any,

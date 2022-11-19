@@ -3,7 +3,7 @@ import React from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { HiX } from 'react-icons/hi';
-import { CityModel } from '../../types';
+import { CityModel } from '../../type';
 
 interface ISearch {
   value: string;

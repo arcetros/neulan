@@ -10,8 +10,8 @@
           "@components": "./src/components",
           "@features": "./src/features",
           "@helpers": "./src/helpers",
-          "@hooks": "./src/hooks/index",
-          "@types": "./src/types/index"
+          "@hooks": "./src/hooks",
+          "@type": "./src/type/index"
         }
       }
     ]

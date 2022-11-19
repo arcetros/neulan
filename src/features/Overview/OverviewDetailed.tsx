@@ -1,14 +1,19 @@
 import { useState } from 'react';
-import { useSelector } from '@store/index';
 import { getLocalTime } from '@helpers/getLocalTime';
+import { Forecasts } from 'type';
 import { DetailedInfo } from './DetailedInfo';
 import { WeeklyChart } from './WeeklyChart';
 
 const tabTypes = ['Chart', 'Detailed Info'];
 
-export function Weekly() {
+interface IOverviewDetailed {
+  forecasts: Forecasts;
+  isRequested: boolean;
+  units: string;
+}
+
+export default function OverviewDetailed({ forecasts, isRequested, units }: IOverviewDetailed) {
   const [activeTab, setActiveTab] = useState(tabTypes[0]);
-  const { forecasts } = useSelector((state) => state.weather);
   return (
     <div className="flex flex-col w-full bg-white mx-auto dark:bg-dark200 rounded-xl shadow-md dark:shadow-none py-8 lg:max-w-[120rem]">
       <div className="mb-4 border-b-2 border-gray-300 dark:border-dark100 w-full">
@@ -39,8 +44,8 @@ export function Weekly() {
           </ul>
         </div>
       </div>
-      {activeTab === 'Chart' && <WeeklyChart />}
-      {activeTab === 'Detailed Info' && <DetailedInfo />}
+      {activeTab === 'Chart' && <WeeklyChart currentForecast={forecasts} isLoading={isRequested} />}
+      {activeTab === 'Detailed Info' && <DetailedInfo forecasts={forecasts} units={units} />}
     </div>
   );
 }

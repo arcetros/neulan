@@ -1,7 +1,7 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import { BsWind, BsCloudRain, BsSpeedometer2, BsFillSunFill } from 'react-icons/bs';
 import { IoMdArrowDropdown } from 'react-icons/io';
-import { Forecasts } from '../../../../types';
+import { Forecasts } from '../../../type';
 
 interface IType {
   data: Forecasts;

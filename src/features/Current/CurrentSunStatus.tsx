@@ -7,7 +7,7 @@ interface ISun {
   isBeforeAfter: string | React.ReactElement;
 }
 
-export function SunStatus({ status, isWhen, isBeforeAfter }: ISun) {
+export default function CurrentSunStatus({ status, isWhen, isBeforeAfter }: ISun) {
   return (
     <div className="p-3 w-full flex items-center justify-between h-20 bg-[#2b4878] dark:bg-dark100 dark:bg-opacity-50 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-30">
       {status === 'Sunset' ? (
