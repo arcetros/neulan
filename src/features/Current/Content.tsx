@@ -11,7 +11,6 @@ import { SunStatus } from './SunStatus';
 export function Content() {
   const isMobile = useMobile();
   const {
-    // message,
     isRequested,
     units,
     current_weather: currentWeather,
