@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { weatherActions } from '@store/weather-slice';
 import { getGeo, fetchForecast } from '@store/weather-actions';
 import { useDispatch, useSelector, store } from '@store/index';
-import { Content, Condition, Weekly } from '@features/index';
+import { Current, Condition, Weekly } from '@features/index';
 import { MainLayout, SideLayout } from '@components/Layout';
 import { Header } from '@components/Header';
 
@@ -71,7 +71,7 @@ function App() {
         </div>
       </MainLayout>
       <SideLayout>
-        <Content />
+        <Current />
       </SideLayout>
     </div>
   );

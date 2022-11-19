@@ -1,5 +1,5 @@
 import { useSelector } from '@store/index';
-import { Forecasts } from '../../../types';
+import { Forecasts } from '../../../type';
 import * as variants from './variants';
 
 export type ICard = {
